@@ -1,0 +1,26 @@
+<!-- Barra de navegación principal, expandible en pantallas grandes, oscura, transparente, posición absoluta, ancho completo, padding horizontal y z-index alto -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-transparent position-absolute w-100 px-4 z-3">
+  <!-- Marca o logo de la aplicación, en negrita y color blanco -->
+  <a class="navbar-brand fw-bold text-white" href="#">RealEstate</a>
+  <!-- Botón hamburguesa para mostrar/ocultar el menú en dispositivos pequeños -->
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- Contenedor colapsable del contenido de la barra de navegación, alineado a la derecha -->
+  <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+    <!-- Formulario de login alineado horizontalmente con espacio entre elementos -->
+    <form class="d-flex align-items-center gap-2" (submit)="onLogin()">
+      <!-- Campo de correo electrónico, enlazado a la variable 'email' del componente -->
+      <input type="email" [(ngModel)]="email" name="email"
+             class="form-control form-control-sm bg-light bg-opacity-25 text-white border-white"
+             placeholder="Correo" required>
+      <!-- Campo de contraseña, enlazado a la variable 'password' del componente -->
+      <input type="password" [(ngModel)]="password" name="password"
+             class="form-control form-control-sm bg-light bg-opacity-25 text-white border-white"
+             placeholder="Contraseña" required>
+      <!-- Botón para enviar el formulario de login -->
+      <button type="submit" class="btn btn-outline-light btn-sm">Entrar</button>
+    </form>
+  </div>
+</nav>
