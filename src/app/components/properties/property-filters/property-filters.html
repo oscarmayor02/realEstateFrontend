@@ -1,0 +1,139 @@
+<div class="filters-container soft-glass-filters">
+  <form
+    class="row g-3 align-items-end justify-content-center"
+    [formGroup]="searchForm"
+    (ngSubmit)="onSearch()"
+  >
+    <div class="col-12 text-center mb-3">
+      <h4 class="fw-bold text-gradient-soft">✨ Filtra tu próximo hogar</h4>
+      <p class="text-muted small">Explora fácil según tus preferencias</p>
+    </div>
+
+    <!-- Departamento -->
+    <div class="col-12 col-sm-4 col-md-3">
+      <label class="form-label">🌎 Departamento</label>
+      <select
+        class="form-select soft-select"
+        formControlName="departamento"
+        (change)="onDepartamentoChange($event)"
+      >
+        <option value="">Elige uno</option>
+        <option *ngFor="let d of departamentos" [value]="d.departamento">
+          {{ d.departamento }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Ciudad -->
+    <div class="col-12 col-sm-4 col-md-3">
+      <label class="form-label">🏙️ Ciudad</label>
+      <select
+        class="form-select soft-select"
+        formControlName="ciudad"
+        [disabled]="!ciudades.length"
+        (change)="emitirCiudad($event)"
+      >
+        <option value="">Elige ciudad</option>
+        <option *ngFor="let c of ciudades" [value]="c">{{ c }}</option>
+      </select>
+    </div>
+
+    <!-- Tipo -->
+    <div class="col-12 col-sm-4 col-md-3">
+      <label class="form-label">🏡 Tipo de propiedad</label>
+      <select class="form-select soft-select" formControlName="type">
+        <option value="">Selecciona tipo</option>
+        <option value="CASA">Casa</option>
+        <option value="APARTAMENTO">Apartamento</option>
+      </select>
+    </div>
+
+    <!-- Más filtros -->
+    <div class="col-6 col-md-2 d-grid">
+      <button
+        type="button"
+        class="btn btn-outline-dark rounded-pill"
+        (click)="abrirModal()"
+      >
+        <i class="bi bi-sliders"></i> Filtros
+      </button>
+    </div>
+
+    <!-- Buscar -->
+    <div class="col-6 col-md-2 d-grid">
+      <button type="submit" class="btn btn-primary rounded-pill shadow-sm">
+        <i class="bi bi-search-heart"></i> Buscar
+      </button>
+    </div>
+  </form>
+</div>
+
+<!-- MODAL -->
+<div
+  class="custom-modal"
+  tabindex="-1"
+  role="dialog"
+  [ngClass]="{ show: mostrarMasFiltros }"
+  [ngStyle]="{ display: mostrarMasFiltros ? 'block' : 'none' }"
+>
+  <div class="modal-dialog">
+    <div class="modal-content glass-modal">
+      <div class="modal-header border-0">
+        <h5 class="modal-title fw-bold">Más filtros</h5>
+        <button
+          type="button"
+          class="btn-close"
+          (click)="cerrarModal()"
+        ></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Precio máximo</label>
+          <input
+            type="range"
+            class="form-range"
+            min="300000"
+            max="500000000"
+            step="500000"
+            [(ngModel)]="precioMaximo"
+            (change)="actualizarPrecioMaximo()"
+          />
+          <div class="d-flex justify-content-between text-muted small">
+            <span>Mín: $300.000</span>
+            <span
+              >Máx: {{ precioMaximo | currency: 'COP':'symbol-narrow' }}</span
+            >
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Nº de habitaciones</label>
+          <div class="d-flex gap-2 flex-wrap">
+            <button
+              type="button"
+              *ngFor="let n of [1, 2, 3, 4, 5]"
+              class="btn btn-outline-dark btn-sm rounded-circle px-3"
+              [ngClass]="{ 'active-room': selectedRooms === n }"
+              (click)="selectRooms(n)"
+            >
+              {{ n }}+
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer border-0">
+        <button
+          class="btn btn-outline-secondary btn-sm"
+          (click)="cerrarModal()"
+        >
+          Cancelar
+        </button>
+        <button class="btn btn-primary btn-sm" (click)="aplicarFiltros()">
+          Aplicar filtros
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

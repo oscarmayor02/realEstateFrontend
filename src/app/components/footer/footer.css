@@ -1,0 +1,61 @@
+.feature-card {
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  cursor: pointer;
+  background: #f9fbfc;
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+  background: #e9f7f9;
+}
+
+.feature-icon {
+  font-size: 4rem;
+}
+
+h2.display-4 {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+@media (max-width: 767.98px) {
+  .feature-card {
+    padding: 3rem 2rem;
+  }
+  .feature-icon {
+    font-size: 3.5rem;
+  }
+  h2.display-4 {
+    font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .feature-card p {
+    font-size: 0.9rem;
+  }
+}
+.btn-register {
+  font-weight: 600;
+  padding: 1rem 2.5rem;
+  border-radius: 50px;
+  box-shadow: 0 8px 15px rgba(0, 123, 255, 0.3);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-register:hover {
+  background-color: #004bb5;
+  box-shadow: 0 12px 25px rgba(0, 75, 181, 0.5);
+  text-decoration: none;
+  color: #fff;
+}
+
+
+.promo-image {
+  max-height: 160px;
+  transition: transform 0.3s ease;
+}
+
+.promo-image:hover {
+  transform: scale(1.05);
+}

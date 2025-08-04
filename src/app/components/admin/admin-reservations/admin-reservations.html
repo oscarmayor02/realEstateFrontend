@@ -1,0 +1,92 @@
+<div class="container mt-4">
+  <h2 class="mb-3">Gestión de Reservas</h2>
+
+  <!-- Estadísticas -->
+  <div class="row mb-4">
+    <div class="col-md-3" *ngFor="let stat of stats">
+      <div class="card shadow-sm rounded text-center">
+        <div class="card-body">
+          <h6 class="text-muted">{{ stat.title }}</h6>
+          <h3>{{ stat.value }}</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filtros -->
+  <div class="row mb-3">
+    <div class="col-md-4">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Buscar por cliente, propiedad o dirección"
+        [(ngModel)]="searchQuery"
+        (ngModelChange)="applyFilters()"
+      />
+    </div>
+    <div class="col-md-3">
+      <select
+        class="form-select"
+        [(ngModel)]="filterStatus"
+        (change)="applyFilters()"
+      >
+        <option value="">Todos los estados</option>
+        <option value="PENDING">Pendiente</option>
+        <option value="CONFIRMED">Confirmada</option>
+        <option value="CANCELLED">Cancelada</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Tabla -->
+  <div class="table-responsive">
+    <table class="table table-hover align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>ID</th>
+          <th>Cliente</th>
+          <th>Propiedad</th>
+          <th>Dirección</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let r of filteredReservations">
+          <td data-label="ID">{{ r.id }}</td>
+          <td data-label="Cliente">{{ r.clientName }}</td>
+          <td data-label="Propiedad">{{ r.propertyTitle }}</td>
+          <td data-label="Dirección">{{ r.propertyAddress }}</td>
+          <td data-label="Estado">
+            <span
+              class="badge"
+              [ngClass]="{
+          'bg-warning text-dark': r.status === 'PENDING',
+          'bg-success': r.status === 'CONFIRMED',
+          'bg-danger': r.status === 'CANCELLED'
+        }"
+            >
+              {{ r.status }}
+            </span>
+          </td>
+          <td data-label="Acciones">
+            <button
+              class="btn btn-sm btn-success me-1"
+              *ngIf="r.status === 'PENDING'"
+              (click)="confirmReservation(r.id)"
+            >
+              Confirmar
+            </button>
+            <button
+              class="btn btn-sm btn-danger"
+              *ngIf="r.status !== 'CANCELLED'"
+              (click)="cancelReservation(r.id)"
+            >
+              Cancelar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

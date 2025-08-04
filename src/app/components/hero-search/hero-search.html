@@ -1,38 +1,15 @@
-<!-- Contenedor principal del hero con imagen de fondo, texto blanco y centrado -->
-<div class="hero text-white text-center"
-     style="background-image: url('/assets/house.jpeg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            min-height: 500px;
-            position: relative;">
-  
-  <!-- Contenedor interno centrado vertical y horizontalmente, con padding superior e inferior -->
-  <div class="container d-flex flex-column justify-content-center align-items-center bg-opacity-25"
-       style="padding-top: 251px; padding-bottom: 40px;">
-       
-    <!-- Título grande y en negrita -->
-    <h1 class="display-4 fw-bold">Encuentra tu lugar ideal</h1>
-
-    <!-- Buscador: fondo blanco, bordes redondeados, sombra, padding, distribución horizontal y separación superior -->
-    <div class="bg-white rounded shadow p-3 d-flex bg-opacity-25 justify-content-between mt-4 w-100"
-         style="max-width: 800px; ">
-      <!-- Input de texto para la ubicación, con margen a la derecha y fondo semitransparente -->
-      <input type="text" class="form-control me-2 bg-opacity-25" placeholder="Ubicación" />
-      
-      <!-- Selector de tipo de propiedad, con margen a la derecha y fondo semitransparente -->
-      <select class="form-select me-2 bg-opacity-25" >
-        <option selected>Tipo de propiedad</option>
-        <option>Casa</option>
-        <option>Apartamento</option>
-      </select>
-      
-      <!-- Input numérico para el precio mínimo, con fondo semitransparente -->
-      <input class="bg-opacity-25" type="number" class="form-control me-2" placeholder="Precio mínimo" />
-      
-      <!-- Botón de búsqueda con estilo primario de Bootstrap -->
-      <button class="btn btn-primary">Buscar</button>
+<!-- HERO -->
+<div class="hero">
+  <div class="overlay"></div>
+  <div class="hero-content container text-center">
+    <h1 class="headline">Encuentra tu lugar ideal</h1>
+    <p class="subheadline">Filtra y encuentra la propiedad que buscas</p>
+    <div class="filters-container mt-4">
+      <app-property-filters
+        [departamentos]="departamentos"
+        [ciudades]="ciudades"
+        (search)="onSearch($event)"
+      ></app-property-filters>
     </div>
-    
   </div>
 </div>

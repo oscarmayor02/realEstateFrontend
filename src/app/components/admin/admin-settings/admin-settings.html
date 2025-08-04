@@ -1,0 +1,203 @@
+<div class="container py-4">
+  <h2 class="mb-4">Configuración del Administrador 🛠️</h2>
+
+  <div class="btn-group flex-wrap mb-4" role="group">
+    <button class="btn btn-outline-primary" (click)="changeSection('profile')">
+      Perfil
+    </button>
+    <button class="btn btn-outline-primary" (click)="changeSection('password')">
+      Contraseña
+    </button>
+    <button class="btn btn-outline-primary" (click)="changeSection('roles')">
+      Roles
+    </button>
+    <button class="btn btn-outline-primary" (click)="changeSection('logs')">
+      Logs
+    </button>
+    <button
+      class="btn btn-outline-primary"
+      (click)="changeSection('preferences')"
+    >
+      Preferencias
+    </button>
+    <button
+      class="btn btn-outline-primary"
+      (click)="changeSection('parameters')"
+    >
+      Parámetros
+    </button>
+    <button class="btn btn-outline-warning" (click)="toggleMaintenance()">
+      {{ maintenanceMode ? 'Desactivar' : 'Activar' }} Modo Mantenimiento
+    </button>
+  </div>
+
+  <!-- Perfil -->
+  <form
+    *ngIf="activeSection === 'profile'"
+    [formGroup]="profileForm"
+    (ngSubmit)="saveProfile()"
+    class="card p-4 shadow-sm"
+  >
+    <h5>Editar Perfil</h5>
+    <div class="row mb-3">
+      <div class="col-md-6 mb-2">
+        <input
+          class="form-control"
+          formControlName="name"
+          placeholder="Nombre"
+        />
+      </div>
+      <div class="col-md-6 mb-2">
+        <input
+          class="form-control"
+          formControlName="email"
+          placeholder="Correo"
+        />
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col-md-6 mb-2">
+        <input
+          class="form-control"
+          formControlName="telephone"
+          placeholder="Teléfono"
+        />
+      </div>
+      <div class="col-md-6 mb-2">
+        <input
+          class="form-control"
+          formControlName="cedula"
+          placeholder="Cédula"
+          [disabled]="true"
+        />
+      </div>
+    </div>
+    <button type="submit" class="btn btn-success">Guardar cambios</button>
+  </form>
+
+  <!-- Contraseña -->
+  <form
+    *ngIf="activeSection === 'password'"
+    [formGroup]="passwordForm"
+    (ngSubmit)="changePassword()"
+    class="card p-4 shadow-sm"
+  >
+    <h5>Cambiar Contraseña</h5>
+    <input
+      class="form-control mb-2"
+      type="password"
+      formControlName="currentPassword"
+      placeholder="Contraseña actual"
+    />
+    <input
+      class="form-control mb-2"
+      type="password"
+      formControlName="newPassword"
+      placeholder="Nueva contraseña"
+    />
+    <input
+      class="form-control mb-2"
+      type="password"
+      formControlName="confirmPassword"
+      placeholder="Confirmar nueva contraseña"
+    />
+    <button type="submit" class="btn btn-primary">Actualizar</button>
+  </form>
+
+  <!-- Roles -->
+  <div
+    *ngIf="activeSection === 'roles'"
+    class="card p-4 shadow-sm table-responsive"
+  >
+    <h5>Gestión de Roles</h5>
+    <table class="table table-hover align-middle">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Correo</th>
+          <th>Rol</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.name }}</td>
+          <td>{{ user.email }}</td>
+          <td>
+            <select [(ngModel)]="user.role" class="form-select">
+              <option value="CLIENT">Cliente</option>
+              <option value="HOST">Host</option>
+              <option value="ADMIN">Admin</option>
+            </select>
+          </td>
+          <td>
+            <button class="btn btn-sm btn-primary" (click)="updateRole(user)">
+              Guardar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Logs -->
+  <div *ngIf="activeSection === 'logs'" class="card p-4 shadow-sm">
+    <h5>Logs de Actividad</h5>
+    <ul class="list-group">
+      <li *ngFor="let log of logs" class="list-group-item">
+        <strong>{{ log.action }}</strong><br />
+        <small>Realizado por: {{ log.performedBy }}</small><br />
+        <small>Fecha: {{ log.timestamp | date:'medium' }}</small><br />
+        <em *ngIf="log.details">{{ log.details }}</em>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Preferencias -->
+  <form
+    *ngIf="activeSection === 'preferences'"
+    [formGroup]="preferencesForm"
+    (ngSubmit)="savePreferences()"
+    class="card p-4 shadow-sm"
+  >
+    <h5>Preferencias del Sistema</h5>
+    <select class="form-select mb-3" formControlName="language">
+      <option value="es">Español</option>
+      <option value="en">Inglés</option>
+    </select>
+    <input
+      class="form-control mb-3"
+      formControlName="timezone"
+      placeholder="Zona horaria (p. ej. America/Bogota)"
+    />
+    <input
+      class="form-control mb-3"
+      formControlName="currency"
+      placeholder="Moneda (p. ej. COP)"
+    />
+    <button class="btn btn-primary">Guardar</button>
+  </form>
+
+  <!-- Parámetros -->
+  <form
+    *ngIf="activeSection === 'parameters'"
+    [formGroup]="parametersForm"
+    (ngSubmit)="saveParameters()"
+    class="card p-4 shadow-sm"
+  >
+    <h5>Parámetros Globales</h5>
+    <input
+      class="form-control mb-3"
+      type="number"
+      formControlName="maxReservations"
+      placeholder="Máx. reservas por usuario"
+    />
+    <input
+      class="form-control mb-3"
+      type="number"
+      formControlName="platformFee"
+      placeholder="% comisión plataforma"
+    />
+    <button class="btn btn-primary">Guardar parámetros</button>
+  </form>
+</div>

@@ -1,0 +1,197 @@
+<div
+  class="min-vh-100 d-flex justify-content-center align-items-center bg-gradient"
+>
+  <div
+    class="card shadow-lg p-4 register-card animated fadeIn"
+    style="width: 100%; max-width: 420px"
+  >
+    <div class="text-center mb-4">
+      <img src="assets/ubikkapp1.png" alt="Logo" height="90" class="mb-3" />
+      <h4 class="fw-bold text-primary">Crea tu cuenta</h4>
+      <small class="text-muted">Encuentra tu lugar ideal</small>
+    </div>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+      <!-- Nombre -->
+      <div class="form-floating mb-3">
+        <input
+          type="text"
+          formControlName="name"
+          class="form-control"
+          id="name"
+          placeholder="Nombre completo"
+        />
+        <label for="name">Nombre completo</label>
+        <div
+          class="text-danger small mt-1"
+          *ngIf="registerForm.get('name')?.touched && registerForm.get('name')?.invalid"
+        >
+          <div *ngIf="registerForm.get('name')?.errors?.['required']">
+            El nombre es obligatorio.
+          </div>
+          <div *ngIf="registerForm.get('name')?.errors?.['minlength']">
+            Mínimo 2 caracteres.
+          </div>
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="form-floating mb-3">
+        <input
+          type="email"
+          formControlName="email"
+          class="form-control"
+          id="email"
+          placeholder="Correo"
+        />
+        <label for="email">Correo electrónico</label>
+        <div
+          class="text-danger small mt-1"
+          *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid"
+        >
+          <div *ngIf="registerForm.get('email')?.errors?.['required']">
+            El correo es obligatorio.
+          </div>
+          <div *ngIf="registerForm.get('email')?.errors?.['email']">
+            Correo inválido.
+          </div>
+        </div>
+      </div>
+
+      <!-- Teléfono -->
+      <div class="form-floating mb-3">
+        <input
+          type="text"
+          formControlName="telephone"
+          class="form-control"
+          id="telephone"
+          placeholder="Teléfono"
+        />
+        <label for="telephone">Teléfono</label>
+        <div
+          class="text-danger small mt-1"
+          *ngIf="registerForm.get('telephone')?.touched && registerForm.get('telephone')?.invalid"
+        >
+          <div *ngIf="registerForm.get('telephone')?.errors?.['required']">
+            El teléfono es obligatorio.
+          </div>
+          <div *ngIf="registerForm.get('telephone')?.errors?.['pattern']">
+            Solo números (7 a 15 dígitos).
+          </div>
+        </div>
+      </div>
+
+      <!-- Cédula -->
+      <div class="form-floating mb-3">
+        <input
+          type="text"
+          formControlName="cedula"
+          class="form-control"
+          id="cedula"
+          placeholder="Cédula"
+        />
+        <label for="cedula">Cédula</label>
+        <div
+          class="text-danger small mt-1"
+          *ngIf="registerForm.get('cedula')?.touched && registerForm.get('cedula')?.invalid"
+        >
+          <div *ngIf="registerForm.get('cedula')?.errors?.['required']">
+            La cédula es obligatoria.
+          </div>
+          <div *ngIf="registerForm.get('cedula')?.errors?.['pattern']">
+            Solo números.
+          </div>
+        </div>
+      </div>
+
+      <!-- Tipo de usuario -->
+      <div class="mb-3 text-center">
+        <label class="form-label mb-2">Tipo de usuario</label>
+        <div class="d-flex justify-content-center gap-3">
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              id="role-client"
+              formControlName="role"
+              value="CLIENT"
+            />
+            <label class="form-check-label" for="role-client">Cliente</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              id="role-host"
+              formControlName="role"
+              value="HOST"
+            />
+            <label class="form-check-label" for="role-host">Propietario</label>
+          </div>
+        </div>
+        <div
+          class="text-danger small mt-1"
+          *ngIf="registerForm.get('role')?.touched && registerForm.get('role')?.invalid"
+        >
+          Selecciona un tipo de usuario.
+        </div>
+      </div>
+
+      <!-- Contraseña -->
+      <div class="form-floating mb-3">
+        <input
+          type="password"
+          formControlName="password"
+          class="form-control"
+          id="password"
+          placeholder="Contraseña"
+        />
+        <label for="password">Contraseña</label>
+        <div
+          class="text-danger small mt-1"
+          *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid"
+        >
+          <div *ngIf="registerForm.get('password')?.errors?.['required']">
+            La contraseña es obligatoria.
+          </div>
+          <div *ngIf="registerForm.get('password')?.errors?.['minlength']">
+            Mínimo 6 caracteres.
+          </div>
+        </div>
+      </div>
+
+      <!-- Confirmar contraseña -->
+      <div class="form-floating mb-4">
+        <input
+          type="password"
+          formControlName="confirmPassword"
+          class="form-control"
+          id="confirmPassword"
+          placeholder="Confirmar contraseña"
+        />
+        <label for="confirmPassword">Confirmar contraseña</label>
+        <div
+          class="text-danger small mt-1"
+          *ngIf="registerForm.get('confirmPassword')?.touched && registerForm.errors?.['mismatch']"
+        >
+          Las contraseñas no coinciden.
+        </div>
+      </div>
+
+      <!-- Botón -->
+      <button
+        class="btn btn-primary w-100 btn-lg"
+        type="submit"
+        [disabled]="registerForm.invalid"
+      >
+        Registrarme
+      </button>
+
+      <div class="mt-3 text-center">
+        <a (click)="goToLogin()" class="text-decoration-none text-primary"
+          >¿Ya tienes cuenta? Inicia sesión</a
+        >
+      </div>
+    </form>
+  </div>
+</div>

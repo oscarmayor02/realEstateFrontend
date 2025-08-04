@@ -1,40 +1,85 @@
-import { Injectable } from '@angular/core'; // Permite que la clase sea inyectable como servicio en Angular
-import { environment } from '../../../enviroments/environment'; // Importa las variables de entorno (por ejemplo, la URL base de la API)
-import { HttpClient } from '@angular/common/http'; // Servicio de Angular para hacer peticiones HTTP
-import { Observable, tap } from 'rxjs'; // Observable para manejar respuestas asíncronas y tap para ejecutar efectos secundarios
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, tap } from 'rxjs';
+import { environment } from '../../../enviroments/environment';
 
 @Injectable({
-  providedIn: 'root' // Hace que el servicio esté disponible en toda la aplicación (singleton)
+  providedIn: 'root',
 })
 export class Auth {
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { } // Inyecta el servicio HttpClient para hacer peticiones HTTP
-
-  // Método para iniciar sesión. Recibe email y password, retorna un Observable de la respuesta.
   login(email: string, password: string): Observable<any> {
-    // Hace una petición POST a la API de login, enviando email y password.
-    // Espera que la respuesta tenga un campo 'token'.
-    return this.http.post<{ token: string }>(`${environment.apiBaseUrl}/auth/login`, { email, password })
+    return this.http
+      .post(
+        `${environment.apiBaseUrl}/auth/login?email=${email}&password=${password}`,
+        {},
+        { responseType: 'text' }
+      )
       .pipe(
-        // Cuando recibe la respuesta, guarda el token en localStorage.
-        tap(response => {
-          localStorage.setItem('token', response.token);
+        tap((token: string) => {
+          if (typeof window !== 'undefined') {
+            localStorage.setItem('token', token);
+            try {
+              const payload = token.split('.')[1];
+              const decoded = JSON.parse(atob(payload));
+              if (decoded && decoded.idUser) {
+                localStorage.setItem('idUser', decoded.idUser);
+              }
+            } catch (error) {
+              console.error('Error al decodificar token:', error);
+            }
+          }
         })
       );
   }
 
-  // Método para cerrar sesión. Elimina el token del localStorage.
-  logout() {
-    localStorage.removeItem('token');
+  getUserInfoFromToken(): any | null {
+    const token = localStorage.getItem('token');
+    if (!token) return null;
+
+    try {
+      const payload = token.split('.')[1];
+      const decoded = JSON.parse(atob(payload));
+      return decoded;
+    } catch {
+      return null;
+    }
   }
 
-  // Método para obtener el token almacenado en localStorage.
+  isTokenExpired(): boolean {
+    const user = this.getUserInfoFromToken();
+    if (!user || !user.exp) return true;
+    const now = Math.floor(Date.now() / 1000);
+    return user.exp < now;
+  }
+
+  logout(): void {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('token');
+      localStorage.removeItem('idUser');
+    }
+  }
+
+  isLoggedIn(): boolean {
+    if (typeof window === 'undefined') return false;
+    return !!localStorage.getItem('token');
+  }
+
   getToken(): string | null {
+    if (typeof window === 'undefined') return null;
     return localStorage.getItem('token');
   }
 
-  // Método para saber si el usuario está logueado (si existe un token).
-  isLoggedIn(): boolean {
-    return !!this.getToken();
+  getRoles(): string[] {
+    const user = localStorage.getItem('user');
+    if (!user) return [];
+
+    try {
+      const parsed = JSON.parse(user);
+      return parsed.roles || [];
+    } catch (error) {
+      return [];
+    }
   }
 }

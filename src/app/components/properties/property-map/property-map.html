@@ -1,0 +1,21 @@
+<google-map
+  height="400px"
+  width="100%"
+  [center]="center"
+  [zoom]="zoom"
+  (mapClick)="mapClicked($event)"
+>
+  <map-marker
+    *ngIf="markerPosition"
+    [position]="markerPosition"
+    [options]="{ draggable: false }"
+  >
+  </map-marker>
+
+  <map-marker
+    *ngFor="let marker of markers"
+    [position]="marker.position"
+    [options]="marker.options"
+  >
+  </map-marker>
+</google-map>

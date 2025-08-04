@@ -1,0 +1,186 @@
+/* Base */
+.bg-linkedin {
+  background-color: #0a66c2 !important;
+  color: white !important;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Sidebar Desktop */
+.sidebar-desktop {
+  width: 220px;
+  min-height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background-color: #0a66c2;
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0.75rem;
+  font-size: 0.85rem;
+}
+/* Ajustes generales */
+.sidebar-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Mejora separación entre enlaces */
+.nav-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding-bottom: 1rem;
+}
+
+/* Espacio final del bloque de usuario */
+.sidebar-footer {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.sidebar-footer .fw-bold {
+  font-size: 0.8rem;
+}
+
+.sidebar-footer small {
+  font-size: 0.72rem;
+  opacity: 0.8;
+}
+
+/* Logo */
+.sidebar-logo {
+  width: 120px;
+  margin: 0 auto 1.5rem;
+  display: block;
+}
+
+/* Nav items */
+.nav-link {
+  color: white;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  background-color: #1e7bdc;
+  color: #fff;
+  text-decoration: none;
+}
+
+/* Íconos */
+.nav-link i {
+  font-size: 1rem;
+}
+
+/* Separación entre grupos */
+.nav-section {
+  margin-bottom: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+/* Usuario y logout abajo */
+.sidebar-footer {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  opacity: 0.9;
+}
+
+.user-info img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.logout-link {
+  color: #ffcccb;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  border-radius: 6px;
+  margin-top: 0.5rem;
+  transition: background-color 0.2s ease;
+}
+
+.logout-link:hover {
+  background-color: #ff7043;
+  color: white;
+}
+
+/* Mobile sidebar */
+.sidebar-mobile {
+  background-color: #0a66c2;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1100;
+  padding: 0.75rem 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.sidebar-logo-mobile {
+  width: 100px;
+  height: auto;
+}
+
+.mobile-menu {
+  margin-top: 1rem;
+}
+.sidebar-mobile {
+  background-color: #0a66c2;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1100;
+  padding: 0.75rem 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  font-size: 0.9rem;
+}
+
+.sidebar-logo-mobile {
+  width: 90px;
+  height: auto;
+}
+
+.mobile-menu {
+  margin-top: 1rem;
+}
+
+.mobile-menu .nav-link {
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.mobile-menu .nav-link:hover {
+  background-color: #1e7bdc;
+  color: #fff;
+}
+
+.mobile-user-info {
+  font-size: 0.85rem;
+  opacity: 0.95;
+}
+

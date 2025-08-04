@@ -1,60 +1,67 @@
-<!-- Contenedor principal con padding vertical -->
 <div class="container py-5">
-  <!-- Fila para el título principal del footer -->
-  <div class="row text-center mb-4">
+  <div class="row text-center mb-5">
     <div class="col-12">
-      <h2 class="fw-bold">¿Por qué usar nuestra plataforma?</h2>
+      <h2 class="display-4 fw-bold text-primary mb-3">
+        ¿Por qué elegir UbikkApp?
+      </h2>
+      <p class="fs-5 text-muted mx-auto" style="max-width: 600px">
+        En UbikkApp, te acompañamos para que vender, alquilar o comprar sea
+        fácil, rápido y seguro. <br />
+        ¡Tu tranquilidad es nuestra prioridad!
+      </p>
     </div>
   </div>
 
-  <!-- Fila con tres columnas, cada una mostrando una ventaja de la plataforma -->
-  <div class="row g-4 text-center">
-    <!-- Columna 1: Publica fácilmente -->
+  <div class="row g-5 text-center">
     <div class="col-md-4">
-      <div class="card h-100 shadow-sm border-0">
-        <div class="card-body">
-          <!-- Icono de Bootstrap para casa -->
-          <i class="bi bi-house-door fs-1 text-primary"></i>
-          <h5 class="card-title fw-bold mt-3">Publica fácilmente</h5>
-          <p class="card-text">Crea un anuncio como propietario</p>
-        </div>
+      <div
+        class="card feature-card h-100 border-0 shadow p-4 rounded-5 bg-light"
+      >
+        <i class="bi bi-shield-lock-fill feature-icon text-success mb-4"></i>
+        <h5 class="fw-bold mb-3 text-success">Seguridad garantizada</h5>
+        <p class="text-secondary">
+          Todas las propiedades y usuarios son verificados para proteger tu
+          inversión y evitar sorpresas desagradables.
+        </p>
       </div>
     </div>
 
-    <!-- Columna 2: Encuentra lo que necesitas -->
     <div class="col-md-4">
-      <div class="card h-100 shadow-sm border-0">
-        <div class="card-body">
-          <!-- Icono de Bootstrap para búsqueda -->
-          <i class="bi bi-search fs-1 text-primary"></i>
-          <h5 class="card-title fw-bold mt-3">Encuentra lo que necesitas</h5>
-          <p class="card-text">Explora cientos de propiedades</p>
-        </div>
+      <div
+        class="card feature-card h-100 border-0 shadow p-4 rounded-5 bg-light"
+      >
+        <i class="bi bi-clock-history feature-icon text-warning mb-4"></i>
+        <h5 class="fw-bold mb-3 text-warning">Rápido y sin complicaciones</h5>
+        <p class="text-secondary">
+          Publica o encuentra propiedades en minutos, sin trámites engorrosos ni
+          esperas interminables.
+        </p>
       </div>
     </div>
 
-    <!-- Columna 3: Descarga la app -->
     <div class="col-md-4">
-      <div class="card h-100 shadow-sm border-0">
-        <div class="card-body">
-          <!-- Icono de Bootstrap para descarga -->
-          <i class="bi bi-download fs-1 text-primary"></i>
-          <h5 class="card-title fw-bold mt-3">Descarga la app</h5>
-          <p class="card-text">Disponible en la App Store y Google Play</p>
-        </div>
+      <div
+        class="card feature-card h-100 border-0 shadow p-4 rounded-5 bg-light"
+      >
+        <i class="bi bi-emoji-smile feature-icon text-info mb-4"></i>
+        <h5 class="fw-bold mb-3 text-info">Atención cercana y amable</h5>
+        <p class="text-secondary">
+          Nuestro equipo y la comunidad están aquí para apoyarte en cada paso,
+          con respuestas rápidas y honestas.
+        </p>
       </div>
     </div>
   </div>
 
-  <!-- Fila para los botones de descarga de la app -->
+  <!-- Botón central -->
   <div class="row mt-5">
-    <div class="col text-center">
-      <h4 class="fw-bold mb-3">Descarga nuestra app</h4>
-      <!-- Botones de descarga: imágenes de App Store y Google Play -->
-      <div class="d-flex justify-content-center gap-3">
-        <img src="assets/appstore.png" alt="App Store" width="150" />
-        <img src="assets/playstore.png" alt="Google Play" width="150" />
-      </div>
+    <div class="col-12 text-center">
+      <a href="/register" class="btn btn-lg btn-primary btn-register">
+        ¡Regístrate y publica tu propiedad ahora!
+      </a>
+      <p class="mt-3 text-muted small">
+        ¿Ya tienes cuenta? <a>Inicia sesión aquí</a>
+      </p>
     </div>
   </div>
 </div>

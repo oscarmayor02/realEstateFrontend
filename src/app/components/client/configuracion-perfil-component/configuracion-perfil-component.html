@@ -1,0 +1,94 @@
+<div class="container py-4">
+  <h2 class="fw-bold mb-4">Configuración de perfil</h2>
+
+  <form [formGroup]="profileForm" (ngSubmit)="onSaveProfile()">
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Nombre completo</label>
+        <input
+          formControlName="name"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': isInvalid('name', profileForm) }"
+        />
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Correo electrónico</label>
+        <input
+          formControlName="email"
+          type="email"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': isInvalid('email', profileForm) }"
+        />
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Teléfono</label>
+        <input
+          formControlName="telephone"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': isInvalid('telephone', profileForm) }"
+        />
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Cédula</label>
+        <input
+          formControlName="cedula"
+          class="form-control"
+          [disabled]="true"
+        />
+      </div>
+    </div>
+
+    <button class="btn btn-primary mt-3" type="submit">Guardar cambios</button>
+  </form>
+
+  <hr class="my-5" />
+
+  <!-- Cambiar contraseña -->
+  <form [formGroup]="passwordForm" (ngSubmit)="onChangePassword()">
+    <h4 class="mb-3">Cambiar contraseña</h4>
+
+    <div class="row">
+      <div class="col-md-4 mb-3">
+        <label class="form-label">Contraseña actual</label>
+        <input
+          type="password"
+          formControlName="currentPassword"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': isInvalid('currentPassword', passwordForm) }"
+        />
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <label class="form-label">Nueva contraseña</label>
+        <input
+          type="password"
+          formControlName="newPassword"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': isInvalid('newPassword', passwordForm) }"
+        />
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <label class="form-label">Confirmar nueva contraseña</label>
+        <input
+          type="password"
+          formControlName="confirmPassword"
+          class="form-control"
+          [ngClass]="{
+            'is-invalid': isInvalid('confirmPassword', passwordForm) || hasMismatchError()
+          }"
+        />
+        <div *ngIf="hasMismatchError()" class="text-danger mt-1">
+          Las contraseñas no coinciden.
+        </div>
+      </div>
+    </div>
+
+    <button class="btn btn-warning mt-3" type="submit">
+      Actualizar contraseña
+    </button>
+  </form>
+</div>

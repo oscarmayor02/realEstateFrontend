@@ -1,0 +1,175 @@
+<div class="container py-4">
+  <h2 class="mb-3 fw-bold">Bienvenido de nuevo, Admin 👋</h2>
+  <p class="text-secondary mb-5 fs-5">
+    Aquí tienes un resumen del rendimiento de la plataforma
+  </p>
+
+  <!-- Tarjetas KPI -->
+  <div class="row g-4 mb-5">
+    <div class="col-6 col-md-3">
+      <div class="card shadow-sm border-0 rounded-4 text-center p-3">
+        <div class="card-body">
+          <i class="bi bi-people-fill display-6 text-primary mb-3"></i>
+          <h3 class="fw-bold">{{ totalUsers }}</h3>
+          <p class="text-muted mb-0 fs-6">Usuarios Registrados</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="card shadow-sm border-0 rounded-4 text-center p-3">
+        <div class="card-body">
+          <i class="bi bi-house-fill display-6 text-success mb-3"></i>
+          <h3 class="fw-bold">{{ totalProperties }}</h3>
+          <p class="text-muted mb-0 fs-6">Propiedades Publicadas</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="card shadow-sm border-0 rounded-4 text-center p-3">
+        <div class="card-body">
+          <i class="bi bi-calendar-check-fill display-6 text-warning mb-3"></i>
+          <h3 class="fw-bold">{{ totalReservations }}</h3>
+          <p class="text-muted mb-0 fs-6">Reservas Realizadas</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="card shadow-sm border-0 rounded-4 text-center p-3">
+        <div class="card-body">
+          <i class="bi bi-percent display-6 text-info mb-3"></i>
+          <h3 class="fw-bold">
+            {{ (approvedReservations / totalReservations) * 100 | number :
+            '1.0-0' }}%
+          </h3>
+          <p class="text-muted mb-0 fs-6">Tasa de Aprobación</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gráficos Fila 1 -->
+  <div class="row g-4 mb-5">
+    <div class="col-lg-6">
+      <div class="card shadow-sm border-0 rounded-4 p-4 h-100">
+        <h5 class="fw-semibold mb-4">
+          📈 Usuarios Registrados (Últimos 12 Meses)
+        </h5>
+        <canvas
+          baseChart
+          [data]="userChartData"
+          [options]="userChartOptions"
+          [type]="'line'"
+          style="max-height: 320px"
+        ></canvas>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="card shadow-sm border-0 rounded-4 p-4 h-100">
+        <h5 class="fw-semibold mb-4">🏘 Propiedades vs Reservas (Mensual)</h5>
+        <canvas
+          baseChart
+          [data]="propResChartData"
+          [options]="propResChartOptions"
+          [type]="'bar'"
+          style="max-height: 320px"
+        ></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gráficos Fila 2 -->
+  <div class="row g-4 mb-5">
+    <div class="col-lg-6">
+      <div class="card shadow-sm border-0 rounded-4 p-4 h-100">
+        <h5 class="fw-semibold mb-4">👥 Distribución de Roles de Usuarios</h5>
+        <canvas
+          baseChart
+          [data]="rolesChartData"
+          [options]="rolesChartOptions"
+          [type]="'doughnut'"
+          style="max-height: 320px"
+        ></canvas>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="card shadow-sm border-0 rounded-4 p-4 h-100">
+        <h5 class="fw-semibold mb-4">
+          ⭐ Métricas de Satisfacción de Usuarios
+        </h5>
+        <canvas
+          baseChart
+          [data]="feedbackChartData"
+          [options]="feedbackChartOptions"
+          [type]="'radar'"
+          style="max-height: 320px"
+        ></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gráficos Fila 3 -->
+  <div class="row g-4 mb-5">
+    <div class="col-lg-6">
+      <div class="card shadow-sm border-0 rounded-4 p-4 h-100">
+        <h5 class="fw-semibold mb-4">🏠 Promedio de Propiedades por Usuario</h5>
+        <canvas
+          baseChart
+          [data]="propertiesPerUserChartData"
+          [options]="propertiesPerUserChartOptions"
+          [type]="'bar'"
+          style="max-height: 320px"
+        ></canvas>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="card shadow-sm border-0 rounded-4 p-4 h-100">
+        <h5 class="fw-semibold mb-4">💰 Ingresos Estimados por Usuario (k$)</h5>
+        <canvas
+          baseChart
+          [data]="earningsPerUserChartData"
+          [options]="earningsPerUserChartOptions"
+          [type]="'bar'"
+          style="max-height: 320px"
+        ></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabla de Reservas Recientes -->
+  <div class="card shadow-sm border-0 rounded-4 p-4">
+    <h5 class="fw-semibold mb-4">🕓 Reservas Recientes</h5>
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-light">
+          <tr>
+            <th>Propiedad</th>
+            <th>Usuario</th>
+            <th>Fecha</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let res of recentReservations">
+            <td>{{ res.property }}</td>
+            <td>{{ res.user }}</td>
+            <td *ngIf="res.date; else noDate">
+              {{ res.date | date: 'dd MMM yyyy HH:mm' }}
+            </td>
+            <ng-template #noDate><em>Fecha no disponible</em></ng-template>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<ng-template #loadingTemplate>
+  <div class="text-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Cargando...</span>
+    </div>
+    <p class="mt-3">Cargando datos del panel...</p>
+  </div>
+</ng-template>

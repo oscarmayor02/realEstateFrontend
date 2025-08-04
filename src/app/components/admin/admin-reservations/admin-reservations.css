@@ -1,0 +1,68 @@
+/* Mejora efecto hover */
+.card {
+  transition: transform 0.2s ease;
+  border-radius: 1rem;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.badge {
+  font-size: 0.85rem;
+  padding: 0.4em 0.6em;
+  border-radius: 0.5rem;
+}
+
+.table thead th {
+  white-space: nowrap;
+}
+
+.table td,
+.table th {
+  vertical-align: middle;
+}
+
+/* Responsividad tabla */
+@media (max-width: 768px) {
+  .table-responsive {
+    overflow-x: auto;
+  }
+
+  .container {
+    margin-top: 5rem !important;
+  }
+
+  .table thead {
+    display: none;
+  }
+
+  .table tbody td {
+    display: block;
+    width: 100%;
+    text-align: right;
+    padding-left: 50%;
+    position: relative;
+    border: none;
+    border-bottom: 1px solid #dee2e6;
+  }
+
+  .table tbody td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 1rem;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+    text-align: left;
+    font-weight: bold;
+  }
+
+  .table tr {
+    display: block;
+    margin-bottom: 1rem;
+    border: 1px solid #dee2e6;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+  }
+}

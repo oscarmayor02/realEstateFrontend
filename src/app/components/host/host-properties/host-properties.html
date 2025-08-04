@@ -1,0 +1,63 @@
+<div class="container-fluid">
+  <div
+    class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-3 gap-2"
+  >
+    <h2 class="fw-bold">Mis Propiedades</h2>
+    <!-- <button
+      class="btn btn-primary"
+      [routerLink]="['host/mis-propiedades/nueva']"
+    >
+      Nueva Propiedad
+    </button> -->
+  </div>
+
+  <input
+    type="text"
+    class="form-control mb-4"
+    placeholder="Buscar propiedades..."
+  />
+
+  <div class="row g-3">
+    <div class="col-12 col-md-6 col-lg-4" *ngFor="let p of properties">
+      <div class="property-card">
+        <!-- Imagen -->
+        <img
+          [src]="p.images?.[0]?.url || 'https://via.placeholder.com/120x90?text=Sin+imagen'"
+          alt="Imagen"
+          class="property-img"
+        />
+
+        <!-- Info -->
+        <div class="property-info px-2">
+          <h5 class="mb-1 text-truncate">{{ p.title }}</h5>
+          <p class="mb-1 text-muted text-truncate">
+            {{ p.ciudad }}, {{ p.departamento }}
+          </p>
+          <span
+            class="badge"
+            [ngClass]="p.available ? 'bg-success' : 'bg-secondary'"
+          >
+            {{ getAvailabilityText(p.available) }}
+          </span>
+        </div>
+
+        <!-- Acciones -->
+        <div class="property-actions text-end">
+          <h5 class="text-primary mb-2">${{ p.price | number }}/mo</h5>
+          <button
+            class="btn btn-outline-primary btn-sm me-1"
+            [routerLink]="['/host/mis-propiedades/editar', p.id]"
+          >
+            Editar
+          </button>
+          <button
+            class="btn btn-outline-danger btn-sm"
+            (click)="deleteProperty(p.id)"
+          >
+            Eliminar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

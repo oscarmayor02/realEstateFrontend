@@ -1,0 +1,105 @@
+:root {
+  --primary: #0077ff;
+  --accent: #e6f1ff;
+  --bg-blur: rgba(255, 255, 255, 0.65);
+  --text-dark: #2c2c2c;
+  --border-light: rgba(0, 0, 0, 0.05);
+}
+
+/* Contenedor blur amigable */
+.filters-container.blur-glass {
+  backdrop-filter: blur(12px);
+  background: var(--bg-blur);
+  border: 1px solid var(--border-light);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease-in-out;
+}
+
+/* Títulos */
+.filters-container h4 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.text-gradient {
+  background: linear-gradient(90deg, #0077ff, #00ccff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Etiquetas */
+.filters-container .form-label {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Inputs y selects */
+.filters-container .form-select,
+.filters-container input[type="range"] {
+  background: #f1f5f9;
+  border: 1px solid #c9d2de;
+  border-radius: 12px;
+  padding: 8px 12px;
+  font-size: 0.95rem;
+  color: #222;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03);
+  transition: border 0.2s ease;
+}
+
+.filters-container .form-select:focus,
+.filters-container input[type="range"]:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+/* Botones */
+.filters-container .btn-outline-secondary {
+  background-color: var(--accent);
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+}
+
+.filters-container .btn-outline-secondary:hover {
+background-color: var(--primary);
+  color: white;
+}
+
+/* Botón de búsqueda */
+.filters-container .btn-primary {
+  /* background-color: var(--primary); */
+  border: none;
+  font-weight: 500;
+}
+
+.filters-container .btn-primary:hover {
+  background-color: #005fd1;
+}
+
+
+/* 📱 Responsive */
+@media (max-width: 768px) {
+  .filters-container {
+    padding: 1rem;
+    margin-top: 57px;
+  }
+  .filters-container.blur-glass {
+    padding: 16px;
+  }
+}
+
+
+@media (max-width: 576px) {
+  .filters-container h5 {
+    font-size: 1rem;
+  }
+
+  .filters-container p {
+    font-size: 0.85rem;
+  }
+}

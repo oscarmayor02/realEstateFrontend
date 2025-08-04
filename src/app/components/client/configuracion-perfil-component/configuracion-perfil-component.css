@@ -1,0 +1,10 @@
+
+/* Responsive */
+@media (max-width: 576px) {
+
+
+  .container {
+    padding-top: 5rem !important;
+  }
+
+}

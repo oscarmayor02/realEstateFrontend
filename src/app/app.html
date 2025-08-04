@@ -1,4 +1,105 @@
-<app-navbar></app-navbar>
-<app-hero-search></app-hero-search>
-<app-featured-properties></app-featured-properties>
-<app-footer></app-footer>
+<router-outlet></router-outlet>
+
+<!-- Banner global de descarga -->
+<!-- <app-download-banner></app-download-banner> -->
+
+<!-- Footer -->
+<!-- Footer -->
+<footer
+  class="bg-dark text-white pt-5 pb-3"
+  [style.margin-left]="footerMarginLeft"
+  style="transition: margin-left 0.3s ease"
+>
+  <!-- Mensaje cálido de bienvenida y misión -->
+  <div class="container text-center mb-4">
+    <h4 class="fw-bold">😊 Estamos aquí por ti</h4>
+    <p class="mx-auto" style="max-width: 650px">
+      En <strong>UbikkApp</strong>, nuestra misión es que encuentres tu lugar
+      ideal con total confianza.
+      <br />
+      Nos mueve darte una experiencia
+      <em>segura, cercana y sin complicaciones</em>.
+      <br />
+      Gracias por permitirnos ser parte de tu camino. 🏡
+    </p>
+  </div>
+
+  <!-- Secciones del footer -->
+  <div class="container text-center text-md-start">
+    <div class="row">
+      <!-- Logo o Nombre -->
+      <div class="col-md-4 mb-3">
+        <h5 class="fw-bold mb-3">UbikkApp</h5>
+        <p>
+          Tu plataforma confiable para comprar, alquilar y vender propiedades.
+        </p>
+      </div>
+
+      <!-- Links útiles -->
+      <div class="col-md-4 mb-3">
+        <h6 class="fw-bold">Enlaces útiles</h6>
+        <ul class="list-unstyled">
+          <li>
+            <a href="#contact" class="text-white text-decoration-none"
+              >Contáctanos</a
+            >
+          </li>
+          <li>
+            <a href="/privacidad" class="text-white text-decoration-none"
+              >Política de Privacidad</a
+            >
+          </li>
+          <li>
+            <a href="/terminos" class="text-white text-decoration-none"
+              >Términos y Condiciones</a
+            >
+          </li>
+        </ul>
+      </div>
+
+      <!-- Contacto -->
+      <div class="col-md-4 mb-3">
+        <h6 class="fw-bold">Contacto</h6>
+        <p>
+          Correo:
+          <a
+            href="mailto:soporte@ubikkapp.com"
+            class="text-white text-decoration-none"
+            >soporteubikapp.com</a
+          ><br />
+          Teléfono: +1 (555) 123-4567<br />
+          Dirección: Calle Falsa 123, Ciudad, País
+        </p>
+        <div class="social-icons mt-2">
+          <a
+            href="https://facebook.com/ubikkapp"
+            target="_blank"
+            class="text-white me-3"
+          >
+            <i class="bi bi-facebook fs-4"></i>
+          </a>
+          <a
+            href="https://twitter.com/ubikkapp"
+            target="_blank"
+            class="text-white me-3"
+          >
+            <i class="bi bi-twitter fs-4"></i>
+          </a>
+          <a
+            href="https://instagram.com/ubikkapp"
+            target="_blank"
+            class="text-white"
+          >
+            <i class="bi bi-instagram fs-4"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="bg-secondary" />
+
+  <div class="text-center small pb-2">
+    © 2025 UbikkApp. Todos los derechos reservados.
+  </div>
+</footer>

@@ -1,0 +1,80 @@
+/* MAIN LAYOUT */
+.content-main {
+  min-height: 100vh;
+  padding-top: 56px; /* espacio para topbar en móvil */
+  transition: all 0.3s ease-in-out;
+}
+
+/* Desktop: deja espacio para sidebar fijo */
+@media (min-width: 768px) {
+  .content-main {
+    margin-left: 240px;
+    padding-top: 0;
+  }
+}
+
+/* Sidebar Desktop */
+.sidebar-desktop {
+  width: 240px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+/* Sidebar Mobile */
+.sidebar-mobile {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1100;
+  background-color: #0a66c2;
+  padding: 0.75rem 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Logo y usuario */
+.sidebar-logo {
+  width: 180px;
+  max-width: 100%;
+  height: auto;
+}
+.sidebar-logo-mobile {
+  width: 120px;
+  height: auto;
+}
+.user-greeting {
+  text-align: center;
+  font-size: 1.1rem;
+  margin-top: 0.75rem;
+}
+
+/* Mobile menu */
+.mobile-menu {
+  margin-top: 1rem;
+  text-align: center;
+}
+.sidebar-mobile ul.nav {
+  padding-left: 0;
+  text-align: left;
+  margin: 0 auto;
+  max-width: 280px;
+}
+
+/* Nav styles */
+.nav-link:hover {
+  background-color: #8fbbec;
+  border-radius: 8px;
+}
+.nav-item .badge {
+  font-size: 0.75rem;
+}
+
+/* Logout button hover */
+.btn-outline-light:hover {
+  background-color: #ff7043;
+  border-color: #ff7043;
+  color: white;
+}

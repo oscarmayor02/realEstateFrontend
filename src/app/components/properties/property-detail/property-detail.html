@@ -1,0 +1,211 @@
+<div class="property-detail-wrapper container py-4">
+  <ng-container *ngIf="property; else loading">
+    <!-- Encabezado -->
+    <div class="mb-4 text-center text-md-start">
+      <h1 class="fw-bold text-primary">{{ property.title }}</h1>
+      <p class="text-muted mb-0">
+        {{ property.address }}, {{ property.ciudad }}, {{ property.departamento
+        }}
+      </p>
+    </div>
+
+    <!-- Galería -->
+    <div class="row g-3 mb-4">
+      <div class="col-12 col-md-8">
+        <img
+          [src]="
+            property.images?.length
+              ? property.images[currentImageIndex]?.url
+              : 'https://via.placeholder.com/800x600?text=Sin+imagen'
+          "
+          alt="Imagen principal"
+          class="img-fluid rounded-4 w-100"
+          style="object-fit: cover; min-height: 300px; max-height: 500px"
+        />
+      </div>
+      <div
+        class="col-12 col-md-4 d-flex flex-row flex-md-column gap-2 overflow-auto"
+        style="max-height: 500px"
+      >
+        <img
+          *ngFor="let img of property.images?.slice(0, 5)"
+          [src]="img.url"
+          alt="Imagen extra"
+          class="img-thumbnail rounded-4"
+          style="
+            cursor: pointer;
+            height: 100px;
+            width: 100px;
+            object-fit: cover;
+          "
+          (click)="currentImageIndex = property.images.indexOf(img)"
+        />
+      </div>
+    </div>
+
+    <!-- Información y lateral -->
+    <div class="row g-4">
+      <div class="col-12 col-md-8">
+        <div class="mb-4">
+          <h4 class="fw-semibold">Descripción</h4>
+          <p>{{ property.description }}</p>
+        </div>
+
+        <div class="mb-4">
+          <h5 class="fw-semibold">Características</h5>
+          <ul class="list-unstyled row">
+            <li class="col-6 mb-2">
+              <i class="bi bi-house-door"></i> {{ property.type }}
+            </li>
+            <li class="col-6 mb-2">
+              <i class="bi bi-calendar"></i> Año: {{ property.yearBuilt }}
+            </li>
+            <li class="col-6 mb-2">
+              <i class="bi bi-door-closed"></i> Habitaciones: {{
+              property.bedrooms }}
+            </li>
+            <li class="col-6 mb-2">
+              <i class="bi bi-badge-wc"></i> Baños: {{ property.bathrooms }}
+            </li>
+            <li class="col-6 mb-2">
+              <i class="bi bi-car-front"></i> Parqueo: {{ property.parkingSpaces
+              }}
+            </li>
+            <li class="col-6 mb-2">
+              <i class="bi bi-bounding-box"></i> Área: {{ property.area }} m²
+            </li>
+            <li class="col-6 mb-2">
+              <i class="bi bi-geo"></i> Estrato: {{ property.estrato }}
+            </li>
+          </ul>
+        </div>
+
+        <div class="mb-4">
+          <h5 class="fw-semibold">Comodidades</h5>
+          <div class="d-flex flex-wrap gap-2">
+            <span
+              *ngFor="let amenidad of getAmenidadesActivas()"
+              class="badge bg-secondary"
+            >
+              {{ amenidad }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="col-12 col-md-4">
+        <div class="card shadow-sm p-3 rounded-4 sticky-top" style="top: 2rem">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h3 class="text-primary fw-bold mb-0">
+              ${{ property.price | number }}
+            </h3>
+            <span
+              [ngClass]="property.available ? 'bg-success' : 'bg-secondary'"
+              class="badge"
+            >
+              {{ property.available ? 'Disponible' : 'No disponible' }}
+            </span>
+          </div>
+
+          <button
+            class="btn btn-primary w-100 mt-3"
+            [disabled]="!property.available || !isLoggedIn"
+            [attr.title]="!isLoggedIn ? 'Debes iniciar sesión para poder reservar' : null"
+            (click)="hacerReserva()"
+            data-bs-toggle="modal"
+            data-bs-target="#modalReserva"
+          >
+            Reservar ahora
+          </button>
+
+          <button
+            class="btn btn-outline-secondary w-100 mt-2"
+            (click)="abrirChat()"
+            [attr.title]="!isLoggedIn ? 'Debes iniciar sesión para chatear con el propietario' : null"
+            [disabled]="!isLoggedIn"
+          >
+            <i class="bi bi-chat-dots me-1"></i> Chatear con el propietario
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mapa -->
+    <div class="mt-5">
+      <h5 class="fw-semibold mb-3">Ubicación</h5>
+      <app-property-map
+        [readOnly]="true"
+        [ubicacion]="{ lat: property.latitude, lng: property.longitude }"
+      ></app-property-map>
+    </div>
+  </ng-container>
+
+  <ng-template #loading>
+    <div class="text-center mt-5">
+      <div class="spinner-border text-primary" role="status"></div>
+      <p class="mt-2">Cargando propiedad...</p>
+    </div>
+  </ng-template>
+</div>
+
+<!-- Modal de reserva -->
+<div
+  class="modal fade"
+  id="modalReserva"
+  tabindex="-1"
+  aria-labelledby="modalReservaLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-sm">
+    <div class="modal-content rounded-4">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalReservaLabel">
+          Selecciona disponibilidad
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Cerrar"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div
+          *ngIf="property.availabilityList?.length > 0; else sinDisponibilidad"
+        >
+          <ul class="list-group">
+            <li
+              class="list-group-item"
+              *ngFor="let dispo of property.availabilityList"
+              [class.active]="selectedSlot === dispo"
+              (click)="seleccionarDisponibilidad(dispo)"
+              style="cursor: pointer"
+            >
+              <strong>{{ dispo.dayOfWeek }}</strong>: {{ dispo.startTime }} - {{
+              dispo.endTime }}
+            </li>
+          </ul>
+        </div>
+        <ng-template #sinDisponibilidad>
+          <div class="text-muted text-center">
+            El propietario no ha definido horarios disponibles. Contáctalo por
+            chat para más información.
+          </div>
+        </ng-template>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">
+          Cancelar
+        </button>
+        <button
+          class="btn btn-primary"
+          [disabled]="!selectedSlot"
+          (click)="confirmarReserva(modalReserva)"
+        >
+          Confirmar reserva
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

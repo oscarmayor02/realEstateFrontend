@@ -1,0 +1,97 @@
+<div class="container-fluid py-4">
+  <!-- Filtros -->
+  <div class="row justify-content-center mb-4">
+    <div class="col-12 col-md-10 filters-container">
+      <app-property-filters
+        [departamentos]="departamentos"
+        [ciudades]="ciudades"
+        (search)="onSearch($event)"
+        (ubicacionSeleccionada)="moverMapa($event)"
+      ></app-property-filters>
+    </div>
+  </div>
+
+  <!-- Mapa y mensaje -->
+  <div class="row gx-4 gy-4 align-items-center mb-5">
+    <!-- Mapa -->
+    <div class="col-md-6">
+      <app-property-map [ubicacion]="ubicacionSeleccionada"></app-property-map>
+    </div>
+
+    <!-- Mensaje al lado del mapa -->
+    <div class="col-md-6">
+      <div
+        class="bg-white rounded-4 shadow p-4 d-flex flex-column justify-content-center align-items-center text-center"
+        style="max-width: 500px; width: 100%; margin: auto"
+      >
+        <h3 class="fw-bold text-primary mb-3">
+          Explora propiedades en
+          <span
+            *ngIf="departamentoSeleccionado || ciudadSeleccionada; else defaultText"
+          >
+            <span *ngIf="departamentoSeleccionado"
+              >{{ departamentoSeleccionado }}</span
+            >
+            <span *ngIf="departamentoSeleccionado && ciudadSeleccionada">
+              /
+            </span>
+            <span *ngIf="ciudadSeleccionada">{{ ciudadSeleccionada }}</span>
+          </span>
+          <ng-template #defaultText>toda Colombia</ng-template>
+        </h3>
+
+        <p class="text-muted fs-5 mb-3">
+          Encuentra tu próximo hogar o invierte en bienes raíces desde cualquier
+          lugar del país.
+        </p>
+
+        <img
+          src="assets/mapa-info.png"
+          alt="Explorando propiedades"
+          class="img-fluid rounded-3 mb-4 hero-img"
+        />
+
+        <div class="w-100 px-3">
+          <div
+            class="alert alert-info border-info rounded-4 shadow-sm fs-6 d-flex align-items-center gap-2"
+          >
+            <i class="bi bi-megaphone-fill text-primary fs-4"></i>
+            <span>
+              <strong>¡Publica GRATIS durante el lanzamiento!</strong><br />
+              Muy pronto activaremos planes premium para destacar tus
+              propiedades.
+            </span>
+          </div>
+        </div>
+
+        <!-- <button
+          class="btn btn-primary rounded-pill mt-3 px-4"
+          (click)="irAPublicarPropiedad()"
+          title="Publicar propiedad"
+        >
+          Publicar mi propiedad
+        </button> -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Propiedades -->
+  <div class="row">
+    <div class="col-12">
+      <h4 class="fw-bold mb-3">
+        Propiedades
+        <span *ngIf="departamentoSeleccionado || ciudadSeleccionada">
+          en
+          <span *ngIf="departamentoSeleccionado"
+            >{{ departamentoSeleccionado }}</span
+          >
+          <span *ngIf="departamentoSeleccionado && ciudadSeleccionada">
+            /
+          </span>
+          <span *ngIf="ciudadSeleccionada">{{ ciudadSeleccionada }}</span>
+        </span>
+      </h4>
+      <app-featured-properties></app-featured-properties>
+    </div>
+  </div>
+</div>
