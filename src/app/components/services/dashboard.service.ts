@@ -4,13 +4,14 @@ import { Observable, forkJoin, map } from 'rxjs';
 import { User } from '../../models/User.model';
 import { ReservationResponse } from '../../models/ReservationResponse.model';
 import { PropertyResponse } from '../../models/PropertyResponse.model';
+import { environment } from '../../../enviroments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DashboardService {
-  private baseUrl = 'http://localhost:8080/api';
-
+  // private baseUrl = 'http://localhost:8080/api';
+  private baseUrl = `${environment.apiBaseUrl}`;
   constructor(private http: HttpClient) {}
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(`${this.baseUrl}/users`).pipe(

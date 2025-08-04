@@ -4,6 +4,7 @@ import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
 import { Property } from '../../services/property';
+import { environment } from '../../../../enviroments/environment';
 
 @Component({
   selector: 'app-host-properties',
@@ -14,7 +15,7 @@ import { Property } from '../../services/property';
 export class HostProperties {
   properties: any[] = [];
   hostId: string | null = null;
-
+  private apiUrl = `${environment.apiBaseUrl}/properties`;
   constructor(
     private http: HttpClient,
     private cdr: ChangeDetectorRef,
@@ -32,7 +33,7 @@ export class HostProperties {
 
   fetchPropertiesByOwner(ownerId: string) {
     this.http
-      .get<any[]>(`http://localhost:8080/api/properties/owner/${ownerId}`)
+      .get<any[]>(`${this.apiUrl}/owner/${ownerId}`)
       .subscribe((data) => {
         this.properties = data;
         this.cdr.detectChanges(); // Solución al error NG0100
