@@ -5,6 +5,7 @@ import SockJS from 'sockjs-client';
 import { ChatMessage, RawChatMessage } from '../../models/ChatMessage.model';
 import { HttpClient } from '@angular/common/http';
 import { UserDTO } from '../../models/UserDTO.model';
+import { environment } from '../../../enviroments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class ChatService {
@@ -14,7 +15,8 @@ export class ChatService {
   private pendingMessages: ChatMessage[] = [];
 
   private userId: string | null = localStorage.getItem('idUser');
-  private apiUrl = 'http://localhost:8080/api/messages';
+  // private apiUrl = 'http://localhost:8080/api/messages';
+  private apiUrl = `${environment.apiBaseUrl}/messages`;
 
   // Comportamiento para total mensajes no leídos
   private unreadCountSubject = new BehaviorSubject<number>(0);
@@ -27,7 +29,9 @@ export class ChatService {
   initializeWebSocketConnection() {
     if (!this.userId) return;
 
-    const socket = new SockJS('http://localhost:8080/ws');
+    // const socket = new SockJS('http://localhost:8080/ws');
+    const socket = new SockJS('https://realstatebackend-mxee.onrender.com/ws');
+
     this.stompClient = new StompJs.Client({
       webSocketFactory: () => socket,
       debug: () => {},
