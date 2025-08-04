@@ -1,0 +1,508 @@
+<div class="container mt-4">
+  <h2 class="mb-4 text-center text-md-start">Gestión de Propiedades</h2>
+
+  <!-- Botón crear propiedad -->
+  <div class="d-flex justify-content-center justify-content-md-start mb-3">
+    <button class="btn btn-success" (click)="openCreateModal()">
+      <i class="bi bi-plus-circle me-1"></i> Nueva propiedad
+    </button>
+  </div>
+
+  <!-- Buscador -->
+  <input
+    type="text"
+    class="form-control mb-4"
+    placeholder="Buscar por título o ciudad"
+    [(ngModel)]="searchTerm"
+    (input)="filterProperties()"
+  />
+
+  <div class="table-responsive">
+    <table class="table table-hover align-middle">
+      <thead class="table-dark">
+        <tr>
+          <th>ID</th>
+          <th>Título</th>
+          <th>Ciudad</th>
+          <th>Precio</th>
+          <th>Tipo</th>
+          <th>Disponible</th>
+          <th>Host</th>
+          <th class="text-center">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let property of paginatedProperties">
+          <td>{{ property.id }}</td>
+          <td>{{ property.title }}</td>
+          <td>{{ property.ciudad }}</td>
+          <td>{{ property.price | currency }}</td>
+          <td>{{ property.type }}</td>
+          <td>
+            <span
+              class="badge"
+              [ngClass]="property.available ? 'bg-success' : 'bg-secondary'"
+            >
+              {{ property.available ? 'Sí' : 'No' }}
+            </span>
+          </td>
+          <td>{{ property.host.name }}</td>
+          <td class="text-center">
+            <button
+              class="btn btn-sm btn-info me-2"
+              title="Ver imágenes"
+              (click)="openImagesModal(property)"
+            >
+              <i class="bi bi-images"></i>
+            </button>
+            <button
+              class="btn btn-sm btn-primary me-2"
+              title="Editar propiedad"
+              (click)="openEditModal(property)"
+            >
+              <i class="bi bi-pencil-fill"></i>
+            </button>
+            <button
+              class="btn btn-sm btn-danger"
+              title="Eliminar propiedad"
+              (click)="deleteProperty(property.id)"
+            >
+              <i class="bi bi-trash-fill"></i>
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="filteredProperties.length === 0">
+          <td colspan="8" class="text-center text-muted">
+            No se encontraron propiedades.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Paginación -->
+  <nav *ngIf="filteredProperties.length > itemsPerPage" aria-label="Paginación">
+    <ul class="pagination justify-content-center">
+      <li class="page-item" [class.disabled]="currentPage === 1">
+        <a
+          class="page-link"
+          href="#"
+          (click)="changePage(currentPage - 1); $event.preventDefault()"
+          >Anterior</a
+        >
+      </li>
+      <li
+        class="page-item"
+        *ngFor="
+          let page of [].constructor(Math.ceil(filteredProperties.length / itemsPerPage));
+          let i = index
+        "
+        [class.active]="currentPage === i + 1"
+      >
+        <a
+          class="page-link"
+          href="#"
+          (click)="changePage(i + 1); $event.preventDefault()"
+          >{{ i + 1 }}</a
+        >
+      </li>
+      <li
+        class="page-item"
+        [class.disabled]="
+          currentPage === Math.ceil(filteredProperties.length / itemsPerPage)
+        "
+      >
+        <a
+          class="page-link"
+          href="#"
+          (click)="changePage(currentPage + 1); $event.preventDefault()"
+          >Siguiente</a
+        >
+      </li>
+    </ul>
+  </nav>
+</div>
+
+<!-- Modal Crear/Editar Propiedad -->
+<div
+  class="modal fade"
+  id="editPropertyModal"
+  tabindex="-1"
+  aria-labelledby="editPropertyModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editPropertyModalLabel">
+          {{ isEditing ? 'Editar Propiedad' : 'Crear Propiedad' }}
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Cerrar"
+          (click)="closeModal('editPropertyModal')"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form
+          #propertyForm="ngForm"
+          (ngSubmit)="saveProperty(propertyForm)"
+          novalidate
+          class="needs-validation"
+        >
+          <div class="row g-3">
+            <div class="col-md-8">
+              <!-- Campos de texto -->
+              <div class="mb-3">
+                <label for="title" class="form-label">Título *</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="title"
+                  name="title"
+                  [(ngModel)]="selectedProperty!.title"
+                  required
+                  minlength="3"
+                  #title="ngModel"
+                />
+                <div
+                  *ngIf="title.invalid && (title.dirty || title.touched)"
+                  class="text-danger small"
+                >
+                  <div *ngIf="title.errors?.['required']">
+                    El título es obligatorio.
+                  </div>
+                  <div *ngIf="title.errors?.['minlength']">
+                    Mínimo 3 caracteres.
+                  </div>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="description" class="form-label"
+                  >Descripción *</label
+                >
+                <textarea
+                  class="form-control"
+                  id="description"
+                  name="description"
+                  rows="4"
+                  [(ngModel)]="selectedProperty!.description"
+                  required
+                  minlength="10"
+                  #description="ngModel"
+                ></textarea>
+                <div
+                  *ngIf="description.invalid && (description.dirty || description.touched)"
+                  class="text-danger small"
+                >
+                  <div *ngIf="description.errors?.['required']">
+                    La descripción es obligatoria.
+                  </div>
+                  <div *ngIf="description.errors?.['minlength']">
+                    Mínimo 10 caracteres.
+                  </div>
+                </div>
+              </div>
+
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label for="departamento" class="form-label"
+                    >Departamento *</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="departamento"
+                    name="departamento"
+                    [(ngModel)]="selectedProperty!.departamento"
+                    required
+                    #departamento="ngModel"
+                  />
+                  <div
+                    *ngIf="
+                      departamento.invalid && (departamento.dirty || departamento.touched)
+                    "
+                    class="text-danger small"
+                  >
+                    El departamento es obligatorio.
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label for="ciudad" class="form-label">Ciudad *</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="ciudad"
+                    name="ciudad"
+                    [(ngModel)]="selectedProperty!.ciudad"
+                    required
+                    #ciudad="ngModel"
+                  />
+                  <div
+                    *ngIf="ciudad.invalid && (ciudad.dirty || ciudad.touched)"
+                    class="text-danger small"
+                  >
+                    La ciudad es obligatoria.
+                  </div>
+                </div>
+              </div>
+
+              <div class="row g-3 mt-1">
+                <div class="col-md-6">
+                  <label for="address" class="form-label">Dirección *</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="address"
+                    name="address"
+                    [(ngModel)]="selectedProperty!.address"
+                    required
+                    #address="ngModel"
+                  />
+                  <div
+                    *ngIf="address.invalid && (address.dirty || address.touched)"
+                    class="text-danger small"
+                  >
+                    La dirección es obligatoria.
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <label for="latitude" class="form-label">Latitud *</label>
+                  <input
+                    type="number"
+                    step="any"
+                    class="form-control"
+                    id="latitude"
+                    name="latitude"
+                    [(ngModel)]="selectedProperty!.latitude"
+                    required
+                    #latitude="ngModel"
+                  />
+                  <div
+                    *ngIf="latitude.invalid && (latitude.dirty || latitude.touched)"
+                    class="text-danger small"
+                  >
+                    La latitud es obligatoria.
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <label for="longitude" class="form-label">Longitud *</label>
+                  <input
+                    type="number"
+                    step="any"
+                    class="form-control"
+                    id="longitude"
+                    name="longitude"
+                    [(ngModel)]="selectedProperty!.longitude"
+                    required
+                    #longitude="ngModel"
+                  />
+                  <div
+                    *ngIf="longitude.invalid && (longitude.dirty || longitude.touched)"
+                    class="text-danger small"
+                  >
+                    La longitud es obligatoria.
+                  </div>
+                </div>
+              </div>
+
+              <div class="row g-3 mt-1">
+                <div class="col-md-6">
+                  <label for="operationType" class="form-label"
+                    >Tipo de Operación *</label
+                  >
+                  <select
+                    class="form-select"
+                    id="operationType"
+                    name="operationType"
+                    [(ngModel)]="selectedProperty!.operationType"
+                    required
+                    #operationType="ngModel"
+                  >
+                    <option value="SALE">Venta</option>
+                    <option value="RENT">Alquiler</option>
+                  </select>
+                  <div
+                    *ngIf="operationType.invalid && (operationType.dirty || operationType.touched)"
+                    class="text-danger small"
+                  >
+                    Seleccione un tipo de operación.
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <label for="type" class="form-label"
+                    >Tipo de Propiedad *</label
+                  >
+                  <select
+                    class="form-select"
+                    id="type"
+                    name="type"
+                    [(ngModel)]="selectedProperty!.type"
+                    required
+                    #type="ngModel"
+                  >
+                    <option value="HOUSE">Casa</option>
+                    <option value="APARTMENT">Apartamento</option>
+                    <option value="COMMERCIAL">Comercial</option>
+                  </select>
+                  <div
+                    *ngIf="type.invalid && (type.dirty || type.touched)"
+                    class="text-danger small"
+                  >
+                    Seleccione un tipo de propiedad.
+                  </div>
+                </div>
+              </div>
+
+              <div class="mb-3 mt-3">
+                <label for="price" class="form-label">Precio *</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="price"
+                  name="price"
+                  min="0"
+                  [(ngModel)]="selectedProperty!.price"
+                  required
+                  #price="ngModel"
+                />
+                <div
+                  *ngIf="price.invalid && (price.dirty || price.touched)"
+                  class="text-danger small"
+                >
+                  El precio es obligatorio y debe ser mayor o igual a 0.
+                </div>
+              </div>
+
+              <div class="form-check mb-3">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="availableCheck"
+                  [(ngModel)]="selectedProperty!.available"
+                  name="available"
+                />
+                <label class="form-check-label" for="availableCheck"
+                  >Disponible</label
+                >
+              </div>
+
+              <div class="mb-3">
+                <label>Imágenes nuevas</label>
+                <input
+                  type="file"
+                  class="form-control"
+                  (change)="onImageSelected($event)"
+                  multiple
+                  accept="image/*"
+                />
+              </div>
+
+              <!-- Miniaturas imágenes existentes -->
+              <div *ngIf="existingImages.length > 0" class="mb-3">
+                <label>Imágenes actuales</label>
+                <div class="d-flex flex-wrap gap-2">
+                  <div
+                    *ngFor="let img of existingImages; let i = index"
+                    class="position-relative"
+                    style="width: 100px; height: 70px"
+                  >
+                    <img
+                      [src]="img.url"
+                      alt="Imagen propiedad"
+                      class="img-thumbnail w-100 h-100"
+                      style="object-fit: cover"
+                    />
+                    <button
+                      type="button"
+                      class="btn-close position-absolute top-0 end-0"
+                      (click)="removeExistingImage(i)"
+                      aria-label="Eliminar imagen"
+                    ></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Google Maps -->
+            <div class="col-md-4">
+              <label class="form-label">Ubicación en el mapa</label>
+              <div
+                id="map"
+                style="width: 100%; height: 400px; border: 1px solid #ccc"
+              ></div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="closeModal('editPropertyModal')"
+        >
+          Cancelar
+        </button>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="propertyForm.invalid"
+          (click)="saveProperty(propertyForm)"
+        >
+          {{ isEditing ? 'Guardar cambios' : 'Crear propiedad' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Ver Imágenes -->
+<div
+  class="modal fade"
+  id="imageModal"
+  tabindex="-1"
+  aria-labelledby="imageModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="imageModalLabel">
+          Imágenes de la propiedad
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Cerrar"
+          (click)="closeModal('imageModal')"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="selectedImages.length > 0; else noImages">
+          <div class="row g-3">
+            <div class="col-12 col-md-4" *ngFor="let img of selectedImages">
+              <img
+                [src]="img.url"
+                class="img-fluid rounded shadow-sm"
+                alt="Imagen propiedad"
+                style="object-fit: cover; max-height: 200px; width: 100%"
+              />
+            </div>
+          </div>
+        </div>
+        <ng-template #noImages>
+          <p class="text-muted text-center">
+            Esta propiedad no tiene imágenes disponibles.
+          </p>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>

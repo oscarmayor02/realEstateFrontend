@@ -1,0 +1,47 @@
+<div class="container mis-reservas-container">
+  <h2 class="fw-bold text-primary mb-4 text-center">Mis Reservas</h2>
+
+  <!-- <div *ngIf="loading" class="text-center my-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Cargando...</span>
+    </div>
+  </div> -->
+
+  <div
+    *ngIf="!loading && reservas.length === 0"
+    class="alert alert-info text-center"
+  >
+    No tienes reservas activas.
+  </div>
+
+  <div *ngFor="let r of reservas" class="card mb-4 shadow reserva-card">
+    <div class="card-body">
+      <h5 class="card-title fw-semibold text-primary">
+        {{ r.propertyTitle || 'Propiedad' }}
+      </h5>
+      <p class="card-text mb-2">
+        <i class="bi bi-geo-alt-fill text-danger me-2"></i>
+        {{ r.propertyAddress || 'Dirección no disponible' }}
+      </p>
+      <p class="card-text mb-1">
+        <strong>Desde:</strong> {{ r.startDate | date: 'short' }}
+      </p>
+      <p class="card-text mb-1">
+        <strong>Hasta:</strong> {{ r.endDate | date: 'short' }}
+      </p>
+      <p class="card-text mb-0">
+        <strong>Estado:</strong>
+        <span
+          class="badge estado"
+          [ngClass]="{
+            'bg-warning text-dark': r.status === 'PENDING',
+            'bg-success': r.status === 'CONFIRMED',
+            'bg-danger': r.status === 'CANCELLED'
+          }"
+        >
+          {{ r.status }}
+        </span>
+      </p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+<div
+  class="d-flex flex-column flex-md-row"
+  style="min-height: 100vh; overflow-x: hidden"
+>
+  <!-- Sidebar Desktop -->
+  <div class="d-none d-md-block">
+    <app-sidebar-host></app-sidebar-host>
+  </div>
+
+  <!-- Sidebar Mobile -->
+  <div class="d-block d-md-none w-100 position-fixed top-0 start-0 z-3">
+    <app-sidebar-host
+      isMenuOpen="isMenuOpen"
+      (toggleMenu)="onToggleMenu()"
+    ></app-sidebar-host>
+  </div>
+
+  <!-- Contenido principal -->
+  <main
+    class="content-main bg-light flex-grow-1"
+    [ngStyle]="{ 'margin-left': window >= 768 ? '240px' : '0' }"
+  >
+    <div class="container-fluid pt-md-4 pt-5 px-3">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+</div>

@@ -1,0 +1,91 @@
+/* Levanta la card al pasar el mouse con transición suave */
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  will-change: transform;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 25px rgba(13, 110, 253, 0.2);
+}
+
+/* Iconos grandes en las cards KPI */
+.card i {
+  transition: color 0.3s ease;
+}
+
+/* Cambiar color icono al hover de la card */
+.card:hover i {
+  color: #0a58ca; /* un azul más intenso */
+}
+
+/* Tabla con sombra suave y bordes redondeados */
+.table {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+}
+
+/* Encabezado de tabla con fondo tenue y texto en gris */
+.table thead {
+  background-color: #f8f9fa;
+}
+
+.table thead th {
+  font-weight: 600;
+  color: #495057;
+  border-bottom: none;
+}
+
+/* Filas con hover azul claro */
+.table-hover tbody tr:hover {
+  background-color: #e7f1ff;
+  cursor: pointer;
+}
+
+/* Asegurar que canvas sea responsive */
+canvas {
+  width: 100% !important;
+  height: auto !important;
+  display: block;
+}
+
+/* Títulos de sección */
+h5.fw-semibold {
+  color: #212529;
+  font-weight: 600;
+}
+
+/* Ajustar texto de KPI */
+.text-muted.fs-6 {
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+}
+
+/* Para pantallas pequeñas ajustar padding */
+@media (max-width: 576px) {
+  .card {
+    padding: 1rem !important;
+  }
+    .container{
+    margin-top: 5rem !important;
+    }
+  h2 {
+    font-size: 1.75rem;
+  }
+}
+
+/* Scroll horizontal suave en tablas en móviles */
+.table-responsive {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Suaviza bordes de las cards */
+.card {
+  border-radius: 16px;
+}
+
+/* Sombra general para el dashboard */
+.container > .card {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}

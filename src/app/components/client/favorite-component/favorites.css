@@ -1,0 +1,53 @@
+/* Efecto al hacer hover sobre la tarjeta */
+.card:hover {
+  transform: translateY(-3px);
+  transition: all 0.3s ease;
+}
+
+/* Imagen de propiedad */
+.card-img-top {
+  height: 180px;
+  object-fit: cover;
+  border-top-left-radius: 0.75rem;
+  border-top-right-radius: 0.75rem;
+}
+
+/* Texto y detalles dentro de la tarjeta */
+.card-body h6 {
+  font-size: 1rem;
+}
+
+.card-body p,
+.card-body span {
+  font-size: 0.9rem;
+}
+
+/* Contenedor general */
+.container {
+  padding-top: 3rem;
+  padding-bottom: 2rem;
+}
+
+/* Mensaje cuando no hay favoritos */
+.text-center i {
+  color: #0d6efd;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding-top: 5rem !important;
+  }
+
+  .card-img-top {
+    height: 150px;
+  }
+
+  .card-body h6 {
+    font-size: 0.95rem;
+  }
+
+  .card-body p,
+  .card-body span {
+    font-size: 0.85rem;
+  }
+}

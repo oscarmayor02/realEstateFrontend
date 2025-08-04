@@ -1,26 +1,66 @@
-<!-- Barra de navegación principal, expandible en pantallas grandes, oscura, transparente, posición absoluta, ancho completo, padding horizontal y z-index alto -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-transparent position-absolute w-100 px-4 z-3">
-  <!-- Marca o logo de la aplicación, en negrita y color blanco -->
-  <a class="navbar-brand fw-bold text-white" href="#">RealEstate</a>
-  <!-- Botón hamburguesa para mostrar/ocultar el menú en dispositivos pequeños -->
-  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<nav
+  class="navbar navbar-expand-lg navbar-dark bg-transparent position-absolute top-0 start-0 w-100 z-3 px-4 py-2"
+>
+  <div class="container-fluid">
+    <!-- Logo -->
+    <a class="navbar-brand d-flex align-items-center mb-2" href="#">
+      <img src="assets/ubik.png" alt="Logo" class="logo-img me-2" />
+    </a>
 
-  <!-- Contenedor colapsable del contenido de la barra de navegación, alineado a la derecha -->
-  <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-    <!-- Formulario de login alineado horizontalmente con espacio entre elementos -->
-    <form class="d-flex align-items-center gap-2" (submit)="onLogin()">
-      <!-- Campo de correo electrónico, enlazado a la variable 'email' del componente -->
-      <input type="email" [(ngModel)]="email" name="email"
-             class="form-control form-control-sm bg-light bg-opacity-25 text-white border-white"
-             placeholder="Correo" required>
-      <!-- Campo de contraseña, enlazado a la variable 'password' del componente -->
-      <input type="password" [(ngModel)]="password" name="password"
-             class="form-control form-control-sm bg-light bg-opacity-25 text-white border-white"
-             placeholder="Contraseña" required>
-      <!-- Botón para enviar el formulario de login -->
-      <button type="submit" class="btn btn-outline-light btn-sm">Entrar</button>
-    </form>
+    <!-- Toggle button para móvil -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarLogin"
+      aria-controls="navbarLogin"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Contenido colapsable (form login) -->
+    <div class="collapse navbar-collapse justify-content-end" id="navbarLogin">
+      <form
+        [formGroup]="loginForm"
+        class="d-flex flex-column flex-lg-row align-items-center gap-2 gap-lg-3 mt-3 mt-lg-0"
+        (ngSubmit)="onLogin()"
+        novalidate
+      >
+        <input
+          type="email"
+          formControlName="email"
+          class="form-control form-control-sm bg-light bg-opacity-25 text-white border-white"
+          placeholder="Correo"
+          required
+        />
+
+        <input
+          type="password"
+          formControlName="password"
+          class="form-control form-control-sm bg-light bg-opacity-25 text-white border-white"
+          placeholder="Contraseña"
+          required
+        />
+
+        <div class="d-flex gap-2">
+          <button
+            type="submit"
+            class="btn btn-outline-light btn-sm"
+            [disabled]="loginForm.invalid"
+          >
+            Entrar
+          </button>
+          <button
+            type="button"
+            class="btn btn-outline-light btn-sm"
+            (click)="onRegister()"
+          >
+            Registrarme
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
 </nav>

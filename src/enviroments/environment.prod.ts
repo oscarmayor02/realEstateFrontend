@@ -1,4 +1,5 @@
+// environment.prod.ts
 export const environment = {
   production: true,
-  // otras variables de entorno para producción aquí
+  apiBaseUrl: 'https://realstatebackend-mxee.onrender.com/api',
 };

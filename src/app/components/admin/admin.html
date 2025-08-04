@@ -1,0 +1,48 @@
+<div class="d-flex" style="min-height: 100vh; overflow-x: hidden">
+  <!-- Sidebar Desktop visible md+ -->
+  <div
+    class="d-none d-md-flex"
+    style="
+      width: 240px;
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 1000;
+    "
+  >
+    <app-sidebar-admin
+      isMenuOpen="false"
+      (toggleMenu)="null"
+    ></app-sidebar-admin>
+  </div>
+
+  <!-- Sidebar Mobile visible < md -->
+  <div
+    class="d-block d-md-none"
+    style="
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1100;
+    "
+  >
+    <app-sidebar-admin
+      isMenuOpen="isMenuOpen"
+      (toggleMenu)="onToggleMenu()"
+    ></app-sidebar-admin>
+  </div>
+
+  <!-- Contenido principal -->
+  <div
+    class="flex-grow-1 bg-light content-main"
+    [ngStyle]="{
+      'margin-left': window >= 768 ? '240px' : '0'
+    }"
+    style="min-height: 100vh; padding: 20px"
+  >
+    <router-outlet></router-outlet>
+  </div>
+</div>

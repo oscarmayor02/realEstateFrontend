@@ -1,0 +1,71 @@
+<!-- Componente actualizado para mostrar propiedades con diseño amigable en mobile y escritorio -->
+<div class="container-fluid px-4">
+  <div class="py-4">
+    <h2 class="mb-4 fw-bold">Propiedades disponibles</h2>
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <button
+        class="carousel-arrow left d-none d-lg-flex"
+        (click)="scrollCarousel(-1)"
+        aria-label="Anterior"
+      >
+        <i class="bi bi-chevron-left"></i>
+      </button>
+      <button
+        class="carousel-arrow right d-none d-lg-flex"
+        (click)="scrollCarousel(1)"
+        aria-label="Siguiente"
+      >
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+
+    <div #carousel class="property-carousel">
+      <div class="property-track">
+        <div
+          class="property-card"
+          *ngFor="let prop of properties; let i = index"
+          (click)="verDetalle(prop.id)"
+        >
+          <div
+            class="card shadow-sm rounded-3 overflow-hidden h-100 border-0 card-hover"
+          >
+            <img
+              [src]="getCurrentImage(prop, i)"
+              alt="Imagen propiedad"
+              class="card-img-top"
+            />
+            <div class="card-body p-3">
+              <h6 class="fw-bold mb-1">
+                ${{ prop.price != null ? (prop.price | number: '1.0-0') : 'N/A'
+                }} COP
+              </h6>
+              <span class="badge bg-primary mb-2">{{ prop.status }}</span>
+              <p class="text-muted mb-1 small text-capitalize">
+                {{ prop.type }}
+              </p>
+              <p class="fw-medium small">
+                {{ prop.ciudad }}, {{ prop.departamento }}
+              </p>
+            </div>
+          </div>
+
+          <button
+            *ngIf="isLoggedIn()"
+            class="btn btn-light position-absolute top-0 end-0 m-2 p-1 rounded-circle shadow-sm favorite-btn"
+            (click)="toggleFavorite(prop.id, $event); $event.stopPropagation()"
+            aria-label="Agregar a favoritos"
+          >
+            <i
+              class="bi"
+              [ngClass]="{
+              'bi-heart-fill text-danger': isFavorite(prop.id),
+              'bi-heart': !isFavorite(prop.id)
+            }"
+            ></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

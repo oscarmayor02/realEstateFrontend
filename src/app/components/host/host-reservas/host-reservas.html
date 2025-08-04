@@ -1,0 +1,59 @@
+<div class="container mt-4">
+  <h3 class="mb-4">Reservas Recibidas</h3>
+
+  <div *ngIf="!loading && reservas.length === 0" class="alert alert-info">
+    No hay reservas por mostrar.
+  </div>
+
+  <div *ngIf="loading" class="alert alert-secondary">Cargando reservas...</div>
+
+  <div *ngFor="let reserva of reservas" class="card mb-3 shadow-sm">
+    <div class="card-body">
+      <h5 class="card-title">
+        <i class="bi bi-house-door-fill me-1"></i> {{ reserva.propertyTitle }}
+      </h5>
+      <p class="card-text">
+        <strong>Cliente:</strong> {{ reserva.clientName }}<br />
+
+        <strong>Fecha de la cita:</strong>
+        <span *ngIf="esFechaValida(reserva.startDate); else noFecha">
+          {{ reserva.startDate | date: 'fullDate' }}
+        </span>
+        <ng-template #noFecha>Sin fecha</ng-template>
+        <br />
+
+        <strong>Hora:</strong>
+        <span *ngIf="esFechaValida(reserva.startDate); else noHora">
+          {{ reserva.startDate | date: 'shortTime' }}
+        </span>
+        <ng-template #noHora>Sin hora</ng-template>
+      </p>
+
+      <div *ngIf="reserva.status === 'PENDING'" class="mt-3">
+        <button
+          class="btn btn-success me-2"
+          (click)="aceptarReserva(reserva.id)"
+        >
+          Aceptar
+        </button>
+        <button class="btn btn-danger" (click)="rechazarReserva(reserva.id)">
+          Rechazar
+        </button>
+      </div>
+
+      <div
+        *ngIf="reserva.status === 'CONFIRMED'"
+        class="text-success fw-semibold"
+      >
+        Reserva confirmada
+      </div>
+
+      <div
+        *ngIf="reserva.status === 'CANCELLED'"
+        class="text-danger fw-semibold"
+      >
+        Reserva cancelada
+      </div>
+    </div>
+  </div>
+</div>

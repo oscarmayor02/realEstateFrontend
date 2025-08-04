@@ -1,0 +1,302 @@
+<div class="container-fluid px-4">
+  <h2 class="mb-4 fw-bold text-primary">
+    {{ isEditMode ? 'Editar Propiedad' : 'Agregar Nueva Propiedad' }}
+  </h2>
+  <form [formGroup]="propertyForm" (ngSubmit)="onSubmit()">
+    <div class="row g-3">
+      <!-- Título -->
+      <div class="col-md-6">
+        <label class="form-label">Título</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="title"
+          placeholder="Ej. Casa familiar con jardín"
+        />
+      </div>
+
+      <!-- Tipo de Propiedad -->
+      <div class="col-md-6">
+        <label class="form-label">Tipo de Propiedad</label>
+        <select class="form-select" formControlName="operationType">
+          <option value="">Selecciona un tipo</option>
+          <option value="HOUSE">Casa</option>
+          <option value="APARTMENT">Apartamento</option>
+          <option value="STUDIO">Estudio</option>
+        </select>
+      </div>
+
+      <!-- Descripción -->
+      <div class="col-md-12">
+        <label class="form-label">Descripción</label>
+        <textarea
+          class="form-control"
+          formControlName="description"
+          rows="3"
+        ></textarea>
+      </div>
+
+      <!-- Departamento y Ciudad -->
+      <div class="col-md-6">
+        <label class="form-label">Departamento</label>
+        <select
+          class="form-select"
+          formControlName="departamento"
+          (change)="onDepartamentoChange($event)"
+        >
+          <option value="">Selecciona un departamento</option>
+          <option
+            *ngFor="let dept of departamentosColombia"
+            [value]="dept.departamento"
+          >
+            {{ dept.departamento }}
+          </option>
+        </select>
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Ciudad</label>
+        <select
+          class="form-select"
+          formControlName="ciudad"
+          [disabled]="ciudadesDisponibles.length === 0"
+          (change)="onCiudadChange($event)"
+        >
+          <option value="">Selecciona una ciudad</option>
+          <option *ngFor="let ciudad of ciudadesDisponibles" [value]="ciudad">
+            {{ ciudad }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Dirección -->
+      <div class="col-md-12">
+        <label class="form-label">Dirección</label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Ej. Calle 123 #45-67"
+          formControlName="address"
+          (blur)="updateMap()"
+        />
+      </div>
+
+      <!-- Mapa -->
+      <div class="col-md-12">
+        <label class="form-label">Ubicación en el Mapa</label>
+        <app-property-map
+          [center]="center"
+          (locationSelected)="onLocationSelected($event)"
+        ></app-property-map>
+        <small class="text-muted d-block mt-2">
+          Da clic sobre el mapa para capturar la ubicación o selecciona
+          ciudad/departamento
+        </small>
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Latitud</label>
+        <input
+          type="number"
+          class="form-control"
+          formControlName="latitude"
+          readonly
+        />
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Longitud</label>
+        <input
+          type="number"
+          class="form-control"
+          formControlName="longitude"
+          readonly
+        />
+      </div>
+
+      <!-- Precio -->
+      <div class="col-md-6">
+        <label class="form-label">Precio</label>
+        <input
+          type="number"
+          class="form-control"
+          formControlName="price"
+          placeholder="Ej. 1200000"
+        />
+      </div>
+
+      <!-- Área, habitaciones, baños -->
+      <div class="col-md-6">
+        <label class="form-label">Área (m²)</label>
+        <input type="number" class="form-control" formControlName="area" />
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label">Habitaciones</label>
+        <input type="number" class="form-control" formControlName="bedrooms" />
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label">Baños</label>
+        <input type="number" class="form-control" formControlName="bathrooms" />
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Año de construcción</label>
+        <input type="number" class="form-control" formControlName="yearBuilt" />
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Espacios de parqueo</label>
+        <input
+          type="number"
+          class="form-control"
+          formControlName="parkingSpaces"
+        />
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label">Estrato</label>
+        <input type="number" class="form-control" formControlName="estrato" />
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label">Tipo de operación</label>
+        <select class="form-select" formControlName="type">
+          <option value="">Selecciona una opción</option>
+          <option value="RENT">Arriendo</option>
+          <option value="SALE">Venta</option>
+        </select>
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label">Disponible</label>
+        <select class="form-select" formControlName="available">
+          <option [value]="true">Sí</option>
+          <option [value]="false">No</option>
+        </select>
+      </div>
+
+      <!-- Comodidades -->
+      <div class="col-md-12">
+        <label class="form-label">Comodidades</label>
+        <div
+          class="form-check form-check-inline"
+          *ngFor="let field of amenities"
+        >
+          <input
+            class="form-check-input"
+            type="checkbox"
+            [formControlName]="field.key"
+          />
+          <label class="form-check-label">{{ field.label }}</label>
+        </div>
+      </div>
+
+      <!-- Disponibilidad -->
+      <div class="col-md-12">
+        <label class="form-label">Disponibilidad para agendar citas</label>
+        <div formArrayName="availabilityList">
+          <div
+            *ngFor="let availability of availabilityList.controls; let i = index"
+            [formGroupName]="i"
+            class="row g-2 align-items-end border rounded p-3 mb-3"
+          >
+            <div class="col-md-4">
+              <label class="form-label">Día</label>
+              <select class="form-select" formControlName="dayOfWeek">
+                <option *ngFor="let d of daysOfWeek" [value]="d">
+                  {{ daysOfWeekLabels[d] }}
+                </option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Desde</label>
+              <input
+                type="time"
+                class="form-control"
+                formControlName="startTime"
+              />
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Hasta</label>
+              <input
+                type="time"
+                class="form-control"
+                formControlName="endTime"
+              />
+            </div>
+            <div class="col-md-2 text-end">
+              <button
+                type="button"
+                class="btn btn-danger"
+                (click)="removeAvailability(i)"
+              >
+                Eliminar
+              </button>
+            </div>
+          </div>
+        </div>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="addAvailability()"
+        >
+          + Agregar disponibilidad
+        </button>
+      </div>
+
+      <!-- Subida de imágenes -->
+      <div class="col-md-12">
+        <label class="form-label">Fotos de la propiedad</label>
+
+        <!-- Imágenes existentes -->
+        <div *ngIf="existingImages.length > 0" class="mb-3">
+          <label class="form-label">Imágenes actuales</label>
+          <div class="d-flex flex-wrap gap-2">
+            <div
+              *ngFor="let img of existingImages"
+              class="position-relative border rounded p-1"
+              style="width: 150px"
+            >
+              <img
+                [src]="img"
+                alt="Imagen actual"
+                class="img-fluid rounded"
+                style="width: 100%; height: auto"
+              />
+              <button
+                type="button"
+                class="btn btn-sm btn-danger position-absolute top-0 end-0"
+                (click)="removeExistingImage(img)"
+                title="Eliminar imagen"
+              >
+                &times;
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Nuevas imágenes -->
+        <input
+          type="file"
+          multiple
+          (change)="onFilesSelected($event)"
+          accept="image/*"
+          class="form-control"
+        />
+      </div>
+
+      <!-- Submit -->
+      <div class="col-12 mt-4">
+        <button
+          type="submit"
+          class="btn btn-primary w-100"
+          [disabled]="propertyForm.invalid"
+        >
+          Guardar Propiedad
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

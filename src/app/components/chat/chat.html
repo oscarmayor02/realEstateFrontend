@@ -1,0 +1,88 @@
+<div class="chat-container">
+  <!-- Sidebar: Lista de conversaciones -->
+  <div class="sidebar" *ngIf="!contactId || isWideScreen">
+    <div class="sidebar-header">
+      <h3>Tus conversaciones</h3>
+      <p class="subtitle">Selecciona una para comenzar a chatear</p>
+    </div>
+
+    <div
+      class="conversation"
+      *ngFor="let contact of chatList"
+      (click)="openChat(contact.id)"
+      [class.active]="contact.id === contactId"
+    >
+      <div class="avatar" [style.background]="getAvatarColor(contact.name)">
+        {{ contact.name.charAt(0).toUpperCase() }}
+      </div>
+      <div class="details">
+        <div class="top-row">
+          <span class="name">{{ contact.name }}</span>
+          <span class="timestamp"
+            >{{ contact.timestamp ? (contact.timestamp | date:'shortTime') : ''
+            }}</span
+          >
+        </div>
+        <div class="bottom-row">
+          <span class="last-message"
+            >{{ contact.lastMessage || 'Sin mensajes aún' }}</span
+          >
+          <span *ngIf="(contact.unreadCount ?? 0) > 0" class="badge">
+            {{ contact.unreadCount }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Área del chat -->
+  <div class="chat-window" *ngIf="contactId; else selectChat">
+    <div class="chat-header">
+      <button
+        class="back-button"
+        *ngIf="!isWideScreen"
+        (click)="volverALista()"
+        aria-label="Volver a la lista de chats"
+      >
+        ←
+      </button>
+      <h3>{{ contactName || 'Conversación' }}</h3>
+    </div>
+
+    <div class="chat-messages" #scrollMe>
+      <div
+        *ngFor="let msg of messages"
+        [ngClass]="{
+          'message': true,
+          'sent': msg.senderId === currentUserId,
+          'received': msg.senderId !== currentUserId
+        }"
+      >
+        <div class="bubble">
+          <span>{{ msg.content }}</span>
+          <div class="timestamp">{{ formatTime(msg.timestamp) }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-input" [class.sending]="isSending">
+      <input
+        type="text"
+        [(ngModel)]="newMessage"
+        placeholder="Escribe un mensaje..."
+        (keyup.enter)="sendMessage()"
+        [disabled]="isSending"
+        autofocus
+      />
+      <button (click)="sendMessage()" [disabled]="isSending">
+        {{ isSending ? 'Enviando...' : 'Enviar' }}
+      </button>
+    </div>
+  </div>
+
+  <ng-template #selectChat>
+    <div class="no-chat-selected">
+      <!-- <p>Selecciona una conversación para empezar a chatear.</p> -->
+    </div>
+  </ng-template>
+</div>

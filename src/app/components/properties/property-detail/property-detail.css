@@ -1,0 +1,38 @@
+.property-detail-wrapper {
+  overflow: hidden;
+  height: auto;
+  margin: 0 auto;
+  max-width: 1140px;
+}
+
+@media (max-width: 767px) {
+  .property-detail-wrapper {
+    padding: 0 1rem;
+    margin-top: 67px;
+  }
+
+  .sticky-top {
+    position: static !important;
+    top: auto !important;
+  }
+
+  .modal-dialog {
+    max-width: 90%;
+  }
+}
+
+/* Opcional: Estilo para la lista activa en modal */
+.list-group-item.active {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Evitar que la galería lateral tenga scroll en escritorio */
+@media (min-width: 768px) {
+  .overflow-auto {
+    overflow: visible !important;
+  }
+}
