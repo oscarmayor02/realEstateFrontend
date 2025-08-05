@@ -1,10 +1,10 @@
+footer {
+  font-family: 'Poppins', sans-serif;
+}
+
 footer a:hover {
   text-decoration: underline;
   color: #0d6efd; /* azul bootstrap */
-}
-
-footer {
-  font-family: 'Poppins', sans-serif;
 }
 
 @media (max-width: 767px) {
