@@ -314,6 +314,7 @@
   .chat-container {
     flex-direction: column;
     height: 100vh;
+            margin-top: 43px;
   }
 
   .sidebar {
@@ -327,8 +328,7 @@
   .chat-window {
     height: calc(100vh - 280px);
     padding: 12px 16px;
-            margin-top: 88px;
-  }
+        margin-top: 43px;  }
 
   .chat-input input {
     font-size: 0.95rem;
@@ -340,3 +340,71 @@
 }
 
 /* Función para color avatar (usa en TS) */
+/* General fix para alturas dinámicas en móviles */
+:host {
+  height: 100dvh; /* en lugar de 100vh */
+  overflow: hidden;
+}
+
+/* Chat móvil optimizado */
+@media (max-width: 768px) {
+  .chat-container {
+    flex-direction: column;
+    height: 100dvh;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    max-height: 40dvh;
+    border-right: none;
+    border-bottom: 1px solid #ddd;
+    margin-top: 0;
+    padding: 12px;
+  }
+
+  .chat-window {
+    flex: 1;
+    height: auto;
+    padding: 12px 16px;
+        margin-top: 43px;  }
+
+  .chat-messages {
+    max-height: 45dvh;
+    overflow-y: auto;
+  }
+
+  .chat-input input {
+    font-size: 1rem;
+    padding: 10px 12px;
+  }
+
+  .chat-input button {
+    padding: 10px 14px;
+    font-size: 1rem;
+  }
+
+  .back-button {
+    font-size: 1.4rem;
+  }
+
+  .avatar {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+
+  .conversation {
+    padding: 10px 12px;
+  }
+
+  .chat-header h3 {
+    font-size: 1.1rem;
+  }
+
+  .chat-container,
+  .chat-window,
+  .sidebar {
+    border-radius: 0 !important;
+  }
+}
