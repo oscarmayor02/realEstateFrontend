@@ -7,21 +7,22 @@
       <img src="assets/ubik.png" alt="Logo" class="logo-img me-2" />
     </a>
 
-    <!-- Toggle button para móvil -->
     <button
       class="navbar-toggler"
       type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarLogin"
       aria-controls="navbarLogin"
       aria-expanded="false"
       aria-label="Toggle navigation"
+      (click)="toggleMenu()"
     >
       <span class="navbar-toggler-icon"></span>
     </button>
-
     <!-- Contenido colapsable (form login) -->
-    <div class="collapse navbar-collapse justify-content-end" id="navbarLogin">
+    <div
+      #navbarCollapse
+      class="collapse navbar-collapse justify-content-end"
+      id="navbarLogin"
+    >
       <form
         [formGroup]="loginForm"
         class="d-flex flex-column flex-lg-row align-items-center gap-2 gap-lg-3 mt-3 mt-lg-0"

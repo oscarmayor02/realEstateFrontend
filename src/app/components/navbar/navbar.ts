@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -9,6 +9,7 @@ import { Auth } from '../services/auth';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+declare var bootstrap: any; // para evitar error de TS con bootstrap global
 
 @Component({
   selector: 'app-navbar',
@@ -18,6 +19,8 @@ import Swal from 'sweetalert2';
 })
 export class Navbar {
   loginForm: FormGroup;
+  @ViewChild('navbarCollapse') navbarCollapse!: ElementRef;
+  collapseInstance: any;
 
   errorMsg: string = ''; // Variable para el mensaje de error
   // Inyecta el servicio de autenticación para manejar el inicio de sesión
@@ -39,6 +42,28 @@ export class Navbar {
     });
   }
 
+  ngAfterViewInit() {
+    this.collapseInstance = new bootstrap.Collapse(
+      this.navbarCollapse.nativeElement,
+      {
+        toggle: false,
+      }
+    );
+  }
+
+  toggleMenu() {
+    if (this.collapseInstance) {
+      // El toggle oficial funciona para abrir o cerrar
+      this.collapseInstance.toggle();
+    }
+  }
+
+  closeMenu() {
+    if (this.collapseInstance) {
+      this.collapseInstance.hide();
+    }
+  }
+
   onLogin() {
     if (this.loginForm.invalid) return;
     const { email, password } = this.loginForm.value;
@@ -47,6 +72,7 @@ export class Navbar {
         this.errorMsg = '';
         // ...tu lógica de login...
         localStorage.setItem('token', token);
+        this.closeMenu(); // <--- cerrar menú al hacer login
 
         const user = this.authService.getUserInfoFromToken();
         console.log(user); // <- aquí verás el rol
@@ -76,6 +102,7 @@ export class Navbar {
 
   onRegister() {
     // Cambia la ruta según tu app
+
     window.location.href = '/register';
   }
 }

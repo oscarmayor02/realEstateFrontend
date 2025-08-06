@@ -35,9 +35,9 @@ export class SidebarCliente implements OnInit, OnDestroy {
 
   ngOnInit() {
     const user = this.auth.getUserInfoFromToken();
-    console.log('user desde token', user.sub);
 
     if (user) {
+      console.log('user desde token', user.sub);
       this.userName = user?.name || user?.nombre || 'Usuario';
       this.userEmail = user?.sub || user?.sub || 'sin correo';
       this.isAuthenticated = true;
@@ -51,6 +51,14 @@ export class SidebarCliente implements OnInit, OnDestroy {
       this.totalUnreadMessages = count;
       this.cdr.detectChanges(); // <--- forzar actualización
     });
+  }
+
+  goToLogin() {
+    this.router.navigate(['/']);
+  }
+
+  goToRegister() {
+    this.router.navigate(['/register']);
   }
 
   ngOnDestroy() {
