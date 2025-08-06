@@ -3,6 +3,7 @@
   .content-main {
     margin-left: 240px;
     margin-top: 0;
+width: 347px;
   }
 }
 
@@ -11,5 +12,6 @@
   .content-main {
     margin-top: 56px; /* altura aproximada del sidebar mobile */
     margin-left: 0;
+    width: 347px;
   }
 }
