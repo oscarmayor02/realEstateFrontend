@@ -86,7 +86,7 @@ background-color: var(--primary);
 @media (max-width: 768px) {
   .filters-container {
     padding: 1rem;
-    margin-top: 57px;
+    /* margin-top: 57px; */
   }
   .filters-container.blur-glass {
     padding: 16px;

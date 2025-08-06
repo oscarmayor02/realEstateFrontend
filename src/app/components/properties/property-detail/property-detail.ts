@@ -16,11 +16,19 @@ import Swal from 'sweetalert2';
 import { ReservationService } from '../../services/reservation-service';
 import { ReservationRequest } from '../../../models/ReservationRequest.model';
 import { Auth } from '../../services/auth';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+
+declare var bootstrap: any; // para evitar error de TS con bootstrap global
 
 @Component({
   selector: 'app-property-detail',
   standalone: true,
-  imports: [CommonModule, PropertyMap, NgbModalModule],
+  imports: [
+    CommonModule,
+    PropertyMap,
+    NgbModalModule,
+    NgbTooltipModule, // <--- Agrega aquí
+  ],
   templateUrl: './property-detail.html',
   styleUrls: ['./property-detail.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -75,6 +83,14 @@ export class PropertyDetail implements OnInit, OnDestroy {
   ngAfterViewInit(): void {
     // Forzar actualización luego del primer renderizado
     this.cdr.detectChanges();
+    // Inicializar tooltips de bootstrap en todos los elementos con data-bs-toggle="tooltip"
+    const tooltipTriggerList = Array.from(
+      document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    );
+
+    tooltipTriggerList.forEach((tooltipTriggerEl) => {
+      new bootstrap.Tooltip(tooltipTriggerEl);
+    });
   }
 
   startImageCarousel(): void {
