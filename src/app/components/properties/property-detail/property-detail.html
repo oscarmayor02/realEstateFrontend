@@ -108,25 +108,42 @@
             </span>
           </div>
 
-          <button
-            class="btn btn-primary w-100 mt-3"
-            [disabled]="!property.available || !isLoggedIn"
-            [attr.title]="!isLoggedIn ? 'Debes iniciar sesión para poder reservar' : null"
-            (click)="hacerReserva()"
-            data-bs-toggle="modal"
-            data-bs-target="#modalReserva"
+          <span
+            [attr.title]="
+    !isLoggedIn ? 'Debes iniciar sesión para poder reservar' : null
+  "
+            data-bs-toggle="tooltip"
+            data-bs-placement="top"
+            style="display: inline-block"
+            [ngbTooltip]="!isLoggedIn ? 'Debes iniciar sesión para poder reservar' : null"
           >
-            Reservar ahora
-          </button>
+            <button
+              class="btn btn-primary w-100 mt-3"
+              [disabled]="!property.available || !isLoggedIn"
+              (click)="hacerReserva()"
+              data-bs-toggle="modal"
+              data-bs-target="#modalReserva"
+            >
+              Reservar ahora
+            </button>
+          </span>
 
-          <button
-            class="btn btn-outline-secondary w-100 mt-2"
-            (click)="abrirChat()"
-            [attr.title]="!isLoggedIn ? 'Debes iniciar sesión para chatear con el propietario' : null"
-            [disabled]="!isLoggedIn"
+          <span
+            [attr.title]="
+    !isLoggedIn ? 'Debes iniciar sesión para chatear con el propietario' : null
+  "
+            data-bs-toggle="tooltip"
+            data-bs-placement="top"
+            style="display: inline-block"
           >
-            <i class="bi bi-chat-dots me-1"></i> Chatear con el propietario
-          </button>
+            <button
+              class="btn btn-outline-secondary w-100 mt-2"
+              (click)="abrirChat()"
+              [disabled]="!isLoggedIn"
+            >
+              <i class="bi bi-chat-dots me-1"></i> Chatear con el propietario
+            </button>
+          </span>
         </div>
       </div>
     </div>
