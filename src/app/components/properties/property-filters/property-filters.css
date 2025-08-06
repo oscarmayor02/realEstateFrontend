@@ -132,6 +132,7 @@
   .filters-container {
     padding: 0.75rem !important;
             margin-top: 31px;
+            width: 347px;
   }
 
   .filters-container .form-label {
