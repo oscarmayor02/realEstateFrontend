@@ -3,11 +3,12 @@
   overflow-y: hidden;
   scroll-snap-type: x mandatory;
   padding: 1rem 0;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  scrollbar-width: none;         /* Firefox */
+  -ms-overflow-style: none;      /* IE/Edge */
 }
+
 .property-carousel::-webkit-scrollbar {
-  display: none;
+  display: none;                 /* Chrome/Safari */
 }
 
 .property-track {
@@ -36,6 +37,7 @@
   flex-direction: column;
   height: 100%;
 }
+
 .property-card-inner:hover {
   box-shadow: 0 8px 22px rgba(0, 0, 0, 0.15);
 }
@@ -46,6 +48,7 @@
   object-fit: cover;
   transition: transform 0.3s ease;
 }
+
 .property-card-inner:hover .property-img {
   transform: scale(1.03);
 }
@@ -70,6 +73,7 @@
   z-index: 2;
   transition: background-color 0.3s ease;
 }
+
 .favorite-btn:hover {
   background-color: #ffefef;
 }
@@ -85,16 +89,46 @@
   white-space: nowrap;
 }
 
-/* Responsive para móvil */
+/* Responsive tablet y móvil */
 @media (max-width: 768px) {
   .property-card {
     width: 90%;
     margin: 0 auto;
   }
+
   .property-track {
     display: block;
   }
 }
+
+/* Responsive móvil pequeño */
+@media (max-width: 421px) {
+  .property-card {
+    width: 95%;
+    margin: 0 auto;
+  }
+
+  .property-img {
+    height: 160px;
+  }
+
+  .property-info {
+    padding: 0.75rem;
+  }
+
+  .favorite-btn {
+    top: 8px;
+    right: 8px;
+    padding: 0.35rem;
+  }
+
+  .badge {
+    font-size: 0.7rem;
+    padding: 0.3rem 0.5rem;
+  }
+}
+
+/* Flechas del carrusel */
 .carousel-arrow {
   background-color: #ffffff;
   border: 1px solid #dee2e6;

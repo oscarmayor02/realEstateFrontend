@@ -66,13 +66,12 @@
 }
 
 .filters-container .btn-outline-secondary:hover {
-background-color: var(--primary);
+  background-color: var(--primary);
   color: white;
 }
 
 /* Botón de búsqueda */
 .filters-container .btn-primary {
-  /* background-color: var(--primary); */
   border: none;
   font-weight: 500;
 }
@@ -81,11 +80,11 @@ background-color: var(--primary);
   background-color: #005fd1;
 }
 
-
-/* 📱 Responsive */
+/* 📱 Responsive general: ≤767px */
 @media (max-width: 767px) {
   .filters-container {
     padding: 1rem;
+            margin-top: 31px;
   }
 
   .filters-container form .form-label {
@@ -117,8 +116,7 @@ background-color: var(--primary);
   }
 }
 
-
-
+/* 📱 Extra pequeño: ≤576px */
 @media (max-width: 576px) {
   .filters-container h5 {
     font-size: 1rem;
@@ -127,4 +125,53 @@ background-color: var(--primary);
   .filters-container p {
     font-size: 0.85rem;
   }
+}
+
+/* 📱 Móviles muy pequeños: ≤421px */
+@media (max-width: 421px) {
+  .filters-container {
+    padding: 0.75rem !important;
+            margin-top: 31px;
+  }
+
+  .filters-container .form-label {
+    font-size: 0.8rem;
+  }
+
+  .filters-container .form-select,
+  .filters-container input[type="range"] {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.6rem;
+  }
+
+  .filters-container .btn {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.7rem;
+  }
+
+  .filters-container .d-grid {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .filters-container .col-6 {
+    width: 100%;
+  }
+
+  .filters-container h4 {
+    font-size: 1.1rem;
+  }
+
+  .filters-container h5 {
+    font-size: 0.95rem;
+  }
+
+  .filters-container p {
+    font-size: 0.8rem;
+  }
+}
+
+/* 🌐 Extra: evita scroll horizontal innecesario */
+body {
+  overflow-x: hidden;
 }
