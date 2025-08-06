@@ -83,15 +83,40 @@ background-color: var(--primary);
 
 
 /* 📱 Responsive */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .filters-container {
     padding: 1rem;
-    /* margin-top: 57px; */
   }
-  .filters-container.blur-glass {
-    padding: 16px;
+
+  .filters-container form .form-label {
+    font-size: 0.85rem;
+  }
+
+  .filters-container .form-select {
+    font-size: 0.9rem;
+  }
+
+  .filters-container .btn {
+    font-size: 0.9rem;
+    padding: 0.45rem 0.8rem;
+  }
+
+  .filters-container .d-grid {
+    display: flex !important;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .filters-container .btn i {
+    margin-right: 4px;
+  }
+
+  .filters-container .col-6 {
+    width: 100%;
+    max-width: 100%;
   }
 }
+
 
 
 @media (max-width: 576px) {
