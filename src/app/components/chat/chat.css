@@ -4,6 +4,7 @@
   background: linear-gradient(145deg, #e6f0ff, #ffffff);
   font-family: 'Poppins', sans-serif;
   color: #222;
+  overflow: hidden;
 }
 
 /* Contenedor principal del chat */
@@ -192,7 +193,6 @@
   gap: 12px;
   scrollbar-width: thin;
   scrollbar-color: #c1c1c1 transparent;
-  /* margin-top: 180px; */
 }
 
 .chat-messages::-webkit-scrollbar {
@@ -309,44 +309,7 @@
   }
 }
 
-/* Mensajes responsive */
-@media (max-width: 768px) {
-  .chat-container {
-    flex-direction: column;
-    height: 100vh;
-            margin-top: 43px;
-  }
-
-  .sidebar {
-    width: 100%;
-    height: 280px;
-    border-right: none;
-    border-bottom: 1px solid #ddd;
-        margin-top: 72px;
-  }
-
-  .chat-window {
-    height: calc(100vh - 280px);
-    padding: 12px 16px;
-        margin-top: 43px;  }
-
-  .chat-input input {
-    font-size: 0.95rem;
-  }
-
-  .chat-input button {
-    padding: 10px 14px;
-  }
-}
-
-/* Función para color avatar (usa en TS) */
-/* General fix para alturas dinámicas en móviles */
-:host {
-  height: 100dvh; /* en lugar de 100vh */
-  overflow: hidden;
-}
-
-/* Chat móvil optimizado */
+/* Responsive para móviles */
 @media (max-width: 768px) {
   .chat-container {
     flex-direction: column;
@@ -367,7 +330,7 @@
     flex: 1;
     height: auto;
     padding: 12px 16px;
-        margin-top: 43px;  }
+  }
 
   .chat-messages {
     max-height: 45dvh;
@@ -408,13 +371,103 @@
     border-radius: 0 !important;
   }
 }
-@media (max-width: 421px) {
+@media (max-width: 420px) {
+  /* Ajusta el contenedor principal para ocupar toda la pantalla */
+  .chat-container {
+    flex-direction: column;
+    height: 100dvh;
+  }
+
+  /* Sidebar ocupa toda la anchura, altura limitada para no tapar todo */
+  .sidebar {
+    width: 100%;
+    max-height: 30dvh;
+    overflow-y: auto;
+    border-right: none;
+    border-bottom: 1px solid #ddd;
+    padding: 8px;
+    margin-top: 0;
+  }
+
+  /* Área de chat con espacio para el input */
+  .chat-window {
+    flex: 1;
+    height: auto;
+    padding: 12px 8px;
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Ajusta la lista de mensajes para que no ocupe toda la pantalla */
+  .chat-messages {
+    max-height: 50dvh;
+    overflow-y: auto;
+    padding-right: 6px;
+    margin-bottom: 8px;
+  }
+
+  /* Input para enviar mensajes: ocupa toda la anchura y botón junto */
   .chat-input {
-  display: flex;
-  gap: 3px;
-  padding-top: 12px;
-  border-top: 1px solid #ddd;
-  user-select: none;
-  transition: opacity 0.3s ease;
-}
+    display: flex;
+    gap: 6px;
+    padding-top: 8px;
+    border-top: 1px solid #ddd;
+  }
+
+  .chat-input input {
+    flex-grow: 1;
+    font-size: 1rem;
+    padding: 10px 12px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+  }
+
+  .chat-input button {
+    flex-shrink: 0;
+    padding: 10px 14px;
+    font-size: 1rem;
+    border-radius: 20px;
+    background-color: #0a66c2;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .chat-input button:hover {
+    background-color: #054a91;
+  }
+
+  /* Ajuste botón back más visible y accesible */
+  .back-button {
+    font-size: 1.5rem;
+    padding: 4px 8px;
+    margin-right: 8px;
+    color: #0a66c2;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  }
+
+  /* Ajusta avatar para que no se vea gigante */
+  .avatar {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+  }
+
+  /* Reduce padding y espacio en las conversaciones */
+  .conversation {
+    padding: 8px 10px;
+  }
+
+  /* Ajusta textos para que no se corten */
+  .chat-header h3 {
+    font-size: 1.1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex-grow: 1;
+  }
 }

@@ -40,11 +40,21 @@
 }
 
 .property-actions {
-  min-width: 140px;
+  /* min-width: 140px;  quitado para evitar que se salga */
+  flex-shrink: 1;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   gap: 8px;
+  max-width: 100%;
+  word-break: break-word;
+}
+
+.property-actions h5.text-primary {
+  white-space: normal;
+  overflow-wrap: break-word;
+  max-width: 100%;
+  margin-bottom: 0.5rem;
 }
 
 /* Botones más pequeños */
@@ -92,6 +102,12 @@
     flex-direction: row;
     justify-content: flex-end;
     gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .property-actions h5.text-primary {
+    flex-basis: 100%;
+    text-align: right;
   }
 
   /* Botones más grandes y que ocupen espacio proporcional */
