@@ -263,8 +263,8 @@ export class PropertyCreate implements OnInit {
           const value = group.value;
           return {
             dayOfWeek: value.dayOfWeek,
-            startTime: value.startTime?.toString().padStart(5, '0'),
-            endTime: value.endTime?.toString().padStart(5, '0'),
+            startTime: value.startTime,
+            endTime: value.endTime,
           };
         }
       );
