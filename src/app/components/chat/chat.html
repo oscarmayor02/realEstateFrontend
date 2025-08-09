@@ -65,16 +65,16 @@
     </div>
 
     <div class="chat-input" [class.sending]="isSending">
-      <input
-        type="text"
-        [(ngModel)]="newMessage"
-        placeholder="Escribe un mensaje..."
-        (keyup.enter)="sendMessage()"
-        [disabled]="isSending"
-      />
-      <button (click)="sendMessage()" [disabled]="isSending">
-        {{ isSending ? 'Enviando...' : 'Enviar' }}
-      </button>
+      <div class="chat-input-wrapper">
+        <input
+          type="text"
+          [(ngModel)]="newMessage"
+          placeholder="Escribe un mensaje..."
+          (keyup.enter)="sendMessage()"
+          [disabled]="isSending"
+        />
+        <button (click)="sendMessage()" [disabled]="isSending">➤</button>
+      </div>
     </div>
   </div>
 
