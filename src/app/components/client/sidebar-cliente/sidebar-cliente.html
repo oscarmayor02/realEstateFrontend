@@ -102,17 +102,29 @@
     <ng-container *ngIf="isAuthenticated; else guestMobile">
       <ul class="nav flex-column gap-2">
         <li class="nav-item">
-          <a [routerLink]="['listado']" class="nav-link text-white">
+          <a
+            [routerLink]="['listado']"
+            class="nav-link text-white"
+            (click)="toggleMenu()"
+          >
             <i class="bi bi-house-door-fill me-2"></i> Inicio
           </a>
         </li>
         <li class="nav-item">
-          <a [routerLink]="['mis-reservas']" class="nav-link text-white">
+          <a
+            [routerLink]="['mis-reservas']"
+            class="nav-link text-white"
+            (click)="toggleMenu()"
+          >
             <i class="bi bi-calendar-check-fill me-2"></i> Mis Reservas
           </a>
         </li>
         <li class="nav-item">
-          <a [routerLink]="['favoritos']" class="nav-link text-white">
+          <a
+            [routerLink]="['favoritos']"
+            class="nav-link text-white"
+            (click)="toggleMenu()"
+          >
             <i class="bi bi-heart-fill me-2"></i> Favoritos
           </a>
         </li>
@@ -120,6 +132,7 @@
           <a
             [routerLink]="['mensajes']"
             class="nav-link text-white d-flex justify-content-between align-items-center"
+            (click)="toggleMenu()"
           >
             <span><i class="bi bi-chat-dots-fill me-2"></i> Mensajes</span>
             <span
@@ -132,7 +145,11 @@
           </a>
         </li>
         <li class="nav-item">
-          <a [routerLink]="['configuracion']" class="nav-link text-white">
+          <a
+            [routerLink]="['configuracion']"
+            class="nav-link text-white"
+            (click)="toggleMenu()"
+          >
             <i class="bi bi-gear-fill me-2"></i> Configuración
           </a>
         </li>

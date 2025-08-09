@@ -71,27 +71,47 @@
   <div *ngIf="isMenuOpen" class="mobile-menu mt-3">
     <ul class="nav flex-column gap-2">
       <li class="nav-item">
-        <a [routerLink]="['/admin/dashboard']" class="nav-link text-white">
+        <a
+          [routerLink]="['/admin/dashboard']"
+          class="nav-link text-white"
+          (click)="toggleMenu()"
+        >
           <i class="bi bi-house-door-fill me-2"></i> Dashboard
         </a>
       </li>
       <li class="nav-item">
-        <a [routerLink]="['/admin/users']" class="nav-link">
+        <a
+          [routerLink]="['/admin/users']"
+          class="nav-link"
+          (click)="toggleMenu()"
+        >
           <i class="bi bi-people-fill me-2"></i> Usuarios
         </a>
       </li>
       <li class="nav-item">
-        <a [routerLink]="['/admin/properties']" class="nav-link">
+        <a
+          [routerLink]="['/admin/properties']"
+          class="nav-link"
+          (click)="toggleMenu()"
+        >
           <i class="bi bi-heart-fill me-2"></i> Propiedades
         </a>
       </li>
       <li class="nav-item">
-        <a [routerLink]="['/admin/reservations']" class="nav-link">
+        <a
+          [routerLink]="['/admin/reservations']"
+          class="nav-link"
+          (click)="toggleMenu()"
+        >
           <i class="bi bi-calendar2-check-fill me-2"></i> Reservas
         </a>
       </li>
       <li class="nav-item">
-        <a [routerLink]="['/admin/settings']" class="nav-link text-white">
+        <a
+          [routerLink]="['/admin/settings']"
+          class="nav-link text-white"
+          (click)="toggleMenu()"
+        >
           <i class="bi bi-gear-fill me-2"></i> Configuración
         </a>
       </li>
