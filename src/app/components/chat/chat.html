@@ -1,5 +1,5 @@
 <div class="chat-container">
-  <!-- Sidebar: Lista de conversaciones -->
+  <!-- Lista de chats -->
   <div class="sidebar" *ngIf="!contactId || isWideScreen">
     <div class="sidebar-header">
       <h3>Tus conversaciones</h3>
@@ -18,15 +18,15 @@
       <div class="details">
         <div class="top-row">
           <span class="name">{{ contact.name }}</span>
-          <span class="timestamp"
-            >{{ contact.timestamp ? (contact.timestamp | date:'shortTime') : ''
-            }}</span
-          >
+          <span class="timestamp">
+            {{ contact.timestamp ? (contact.timestamp | date:'shortTime') : ''
+            }}
+          </span>
         </div>
         <div class="bottom-row">
-          <span class="last-message"
-            >{{ contact.lastMessage || 'Sin mensajes aún' }}</span
-          >
+          <span class="last-message">
+            {{ contact.lastMessage || 'Sin mensajes aún' }}
+          </span>
           <span *ngIf="(contact.unreadCount ?? 0) > 0" class="badge">
             {{ contact.unreadCount }}
           </span>
@@ -35,16 +35,15 @@
     </div>
   </div>
 
-  <!-- Área del chat -->
+  <!-- Ventana de chat -->
   <div class="chat-window" *ngIf="contactId; else selectChat">
     <div class="chat-header">
       <button
         class="back-button"
         *ngIf="!isWideScreen"
         (click)="volverALista()"
-        aria-label="Volver a la lista de chats"
       >
-        ←
+        ← Volver
       </button>
       <h3>{{ contactName || 'Conversación' }}</h3>
     </div>
@@ -72,7 +71,6 @@
         placeholder="Escribe un mensaje..."
         (keyup.enter)="sendMessage()"
         [disabled]="isSending"
-        autofocus
       />
       <button (click)="sendMessage()" [disabled]="isSending">
         {{ isSending ? 'Enviando...' : 'Enviar' }}
@@ -82,7 +80,7 @@
 
   <ng-template #selectChat>
     <div class="no-chat-selected">
-      <!-- <p>Selecciona una conversación para empezar a chatear.</p> -->
+      <p>Selecciona un chat para comenzar</p>
     </div>
   </ng-template>
 </div>
