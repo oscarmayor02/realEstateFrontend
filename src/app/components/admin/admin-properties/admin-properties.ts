@@ -65,13 +65,48 @@ export class AdminProperties implements OnInit {
   }
 
   filterProperties(): void {
-    this.filteredProperties = this.properties.filter(
-      (p) =>
-        p.title.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-        p.ciudad.toLowerCase().includes(this.searchTerm.toLowerCase())
-    );
+    // Normaliza string (quita acentos y pasa a minúsculas)
+    const normalize = (s: any) =>
+      (s ?? '')
+        .toString()
+        .normalize('NFD') // separa diacríticos
+        .replace(/[\u0300-\u036f]/g, '') // quita diacríticos
+        .toLowerCase();
+
+    const term = normalize((this.searchTerm ?? '').trim());
+
+    // Si no hay término, mostramos todas las propiedades
+    if (!term) {
+      this.filteredProperties = Array.isArray(this.properties)
+        ? [...this.properties]
+        : [];
+      this.currentPage = 1;
+      this.cdr.detectChanges();
+      console.log(
+        '[filter] sin término ->',
+        this.filteredProperties.length,
+        'propiedades'
+      );
+      return;
+    }
+
+    // Filtrado seguro (protegemos si title/ciudad son null/undefined)
+    this.filteredProperties = (this.properties || []).filter((p: any) => {
+      const title = normalize(p?.title);
+      const ciudad = normalize(p?.ciudad);
+      // puedes añadir más campos aquí si quieres (address, host.name, etc.)
+      return title.includes(term) || ciudad.includes(term);
+    });
+
     this.currentPage = 1;
     this.cdr.detectChanges();
+
+    console.log(
+      '[filter] término:',
+      this.searchTerm,
+      '-> resultados:',
+      this.filteredProperties.length
+    );
   }
 
   get paginatedProperties(): PropertyResponse[] {

@@ -58,3 +58,52 @@
   }
 }
 
+.message-box {
+  max-width: 480px;
+  animation: fadeIn 0.5s ease;
+}
+
+.hero-img {
+  max-height: 220px;
+  object-fit: contain;
+  width: 100%;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Móviles pequeños */
+@media (max-width: 480px) {
+  .hero-img {
+    max-height: 150px;
+  }
+  .message-box {
+    margin-top: 15px;
+    padding: 0 0.5rem;
+  }
+}
+
+/* Móviles medianos */
+@media (min-width: 481px) and (max-width: 576px) {
+  .hero-img {
+    max-height: 160px;
+  }
+}
+
+/* Móviles grandes y phablets */
+@media (min-width: 577px) and (max-width: 768px) {
+  .hero-img {
+    max-height: 180px;
+  }
+  .message-box {
+    margin-top: 20px;
+  }
+}

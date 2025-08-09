@@ -255,7 +255,7 @@
 /* Input para enviar mensajes */
 .chat-input {
   display: flex;
-  gap: 12px;
+  gap: 3px;
   padding-top: 12px;
   border-top: 1px solid #ddd;
   user-select: none;

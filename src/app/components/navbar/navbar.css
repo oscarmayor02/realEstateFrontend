@@ -47,7 +47,7 @@
     padding: 1.5rem 1rem;
     border-radius: 0.75rem;
     margin-top: 0.5rem;
-    margin-left: -28px;
+    /* margin-left: -28px; */
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
   }
