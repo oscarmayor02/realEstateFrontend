@@ -1,56 +1,42 @@
-<div class="container-fluid">
-  <div
-    class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-3 gap-2"
-  >
-    <h2 class="fw-bold">Mis Propiedades</h2>
-    <!-- Botón opcional para agregar nueva propiedad -->
-    <!--
-    <button
-      class="btn btn-primary"
-      [routerLink]="['host/mis-propiedades/nueva']"
-    >
-      Nueva Propiedad
-    </button>
-    -->
-  </div>
+<div class="container my-4">
+  <h2 class="fw-bold mb-4">Mis Propiedades</h2>
 
-  <div class="row g-3">
-    <div class="col-12 col-md-6 col-lg-4" *ngFor="let p of properties">
-      <div class="property-card">
-        <!-- Imagen -->
+  <div class="row g-4">
+    <div class="col-12 col-sm-6 col-md-4" *ngFor="let p of properties">
+      <div class="card property-card shadow-sm h-100">
         <img
-          [src]="p.images?.[0]?.url || 'https://via.placeholder.com/120x90?text=Sin+imagen'"
-          alt="Imagen"
-          class="property-img"
+          src="{{ p.images?.[0]?.url || 'https://via.placeholder.com/400x250?text=Sin+imagen' }}"
+          class="card-img-top property-img"
+          alt="Imagen propiedad"
         />
-
-        <!-- Información -->
-        <div class="property-info">
-          <h5 class="mb-1">{{ p.title }}</h5>
-          <p class="mb-1 text-muted">{{ p.ciudad }}, {{ p.departamento }}</p>
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title text-truncate" title="{{ p.title }}">
+            {{ p.title }}
+          </h5>
+          <p class="card-text text-muted mb-2">
+            {{ p.ciudad }}, {{ p.departamento }}
+          </p>
           <span
-            class="badge"
+            class="badge mb-3"
             [ngClass]="p.available ? 'bg-success' : 'bg-secondary'"
           >
             {{ getAvailabilityText(p.available) }}
           </span>
-        </div>
-
-        <!-- Acciones -->
-        <div class="property-actions">
-          <h5 class="text-primary mb-2">${{ p.price | number }}/mo</h5>
-          <button
-            class="btn btn-outline-primary btn-sm"
-            [routerLink]="['/host/mis-propiedades/editar', p.id]"
-          >
-            Editar
-          </button>
-          <button
-            class="btn btn-outline-danger btn-sm"
-            (click)="deleteProperty(p.id)"
-          >
-            Eliminar
-          </button>
+          <h5 class="text-primary mt-auto mb-3">${{ p.price | number }}/mo</h5>
+          <div class="d-flex gap-2">
+            <button
+              class="btn btn-outline-primary flex-fill"
+              [routerLink]="['/host/mis-propiedades/editar', p.id]"
+            >
+              Editar
+            </button>
+            <button
+              class="btn btn-outline-danger flex-fill"
+              (click)="deleteProperty(p.id)"
+            >
+              Eliminar
+            </button>
+          </div>
         </div>
       </div>
     </div>
