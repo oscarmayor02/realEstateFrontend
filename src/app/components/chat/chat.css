@@ -408,3 +408,13 @@
     border-radius: 0 !important;
   }
 }
+@media (max-width: 421px) {
+  .chat-input {
+  display: flex;
+  gap: 3px;
+  padding-top: 12px;
+  border-top: 1px solid #ddd;
+  user-select: none;
+  transition: opacity 0.3s ease;
+}
+}
