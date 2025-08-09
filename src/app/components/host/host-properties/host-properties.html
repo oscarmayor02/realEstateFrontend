@@ -3,19 +3,16 @@
     class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-3 gap-2"
   >
     <h2 class="fw-bold">Mis Propiedades</h2>
-    <!-- <button
+    <!-- Botón opcional para agregar nueva propiedad -->
+    <!--
+    <button
       class="btn btn-primary"
       [routerLink]="['host/mis-propiedades/nueva']"
     >
       Nueva Propiedad
-    </button> -->
+    </button>
+    -->
   </div>
-
-  <!-- <input
-    type="text"
-    class="form-control mb-4"
-    placeholder="Buscar propiedades..."
-  /> -->
 
   <div class="row g-3">
     <div class="col-12 col-md-6 col-lg-4" *ngFor="let p of properties">
@@ -27,12 +24,10 @@
           class="property-img"
         />
 
-        <!-- Info -->
-        <div class="property-info px-2">
-          <h5 class="mb-1 text-truncate">{{ p.title }}</h5>
-          <p class="mb-1 text-muted text-truncate">
-            {{ p.ciudad }}, {{ p.departamento }}
-          </p>
+        <!-- Información -->
+        <div class="property-info">
+          <h5 class="mb-1">{{ p.title }}</h5>
+          <p class="mb-1 text-muted">{{ p.ciudad }}, {{ p.departamento }}</p>
           <span
             class="badge"
             [ngClass]="p.available ? 'bg-success' : 'bg-secondary'"
@@ -42,10 +37,10 @@
         </div>
 
         <!-- Acciones -->
-        <div class="property-actions text-end">
+        <div class="property-actions">
           <h5 class="text-primary mb-2">${{ p.price | number }}/mo</h5>
           <button
-            class="btn btn-outline-primary btn-sm me-1"
+            class="btn btn-outline-primary btn-sm"
             [routerLink]="['/host/mis-propiedades/editar', p.id]"
           >
             Editar

@@ -406,7 +406,7 @@
     flex: 1;
     height: auto;
     padding: 12px 8px;
-    margin-top: 0;
+    margin-top: 36px;
     display: flex;
     flex-direction: column;
   }
@@ -476,22 +476,39 @@
     text-overflow: ellipsis;
     flex-grow: 1;
   }
-  @media (max-width: 350px) {
+ /* Mantén todo tu CSS actual, y agrega estas reglas al final o dentro del media query móvil */
+
+/* Para pantallas ultra pequeñas, menos de 350px */
+@media (max-width: 350px) {
   .chat-input {
-    gap: 1px; /* o menos */
+    display: flex;
+    gap: 4px;
+    min-width: 0; /* importante para que pueda reducir su tamaño */
   }
 
   .chat-input input {
-    min-width: 0; /* para que pueda reducirse */
     flex-grow: 1;
+    min-width: 0; /* permite que se reduzca más */
+    padding: 8px 12px;
+    font-size: 0.95rem;
+    border-radius: 20px;
   }
 
   .chat-input button {
-    flex-shrink: 0; /* que no se reduzca */
-    min-width: 60px; /* ancho mínimo para que se vea bien */
-    padding: 8px 12px;
-    font-size: 0.9rem;
+    flex-shrink: 0; /* no dejar que se reduzca */
+    min-width: 60px; /* ancho mínimo para el botón */
+    padding: 8px 14px;
+    font-size: 0.95rem;
+    border-radius: 20px;
+    background-color: #0a66c2;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .chat-input button:hover {
+    background-color: #054a91;
   }
 }
-
 }
