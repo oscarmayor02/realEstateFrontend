@@ -143,6 +143,7 @@ export class PropertyCreate implements OnInit {
 
         if (property.availabilityList) {
           property.availabilityList.forEach((a: any) => {
+            // si vienen como "07:11" los dejamos; los normalizaremos al enviar
             this.availabilityList.push(
               this.fb.group({
                 dayOfWeek: [a.dayOfWeek],
@@ -235,6 +236,34 @@ export class PropertyCreate implements OnInit {
     this.selectedFiles = Array.from(input.files);
   }
 
+  // --- Helper: normaliza tiempo a "HH:mm:ss" ---
+  private normalizeTimeToHHMMSS(
+    time: string | null | undefined
+  ): string | null {
+    if (!time && time !== '') return null;
+    const t = (time || '').trim();
+    if (!t) return null;
+    // si ya tiene segundos
+    if (/^\d{2}:\d{2}:\d{2}$/.test(t)) return t;
+    // si formato "H:mm" o "HH:mm" -> convertir a HH:mm:ss
+    const m = t.match(/^(\d{1,2}):(\d{2})$/);
+    if (m) {
+      const hh = m[1].padStart(2, '0');
+      const mm = m[2];
+      return `${hh}:${mm}:00`;
+    }
+    // si viene con punto o coma, intentar reemplazar
+    const alt = t.replace('.', ':').replace(',', ':');
+    const m2 = alt.match(/^(\d{1,2}):(\d{2})$/);
+    if (m2) {
+      const hh = m2[1].padStart(2, '0');
+      const mm = m2[2];
+      return `${hh}:${mm}:00`;
+    }
+    // fallback: devolver input tal cual
+    return t;
+  }
+
   onSubmit() {
     console.log('Form submitted:', this.propertyForm.value);
 
@@ -257,15 +286,21 @@ export class PropertyCreate implements OnInit {
       }
     });
 
-    // Enviar availabilityList como JSON.stringify siempre
+    // Normalizar times y enviar availabilityList como JSON
     const availabilityFormatted = this.availabilityList.controls.map(
-      (group) => ({
-        dayOfWeek: group.value.dayOfWeek,
-        startTime: group.value.startTime,
-        endTime: group.value.endTime,
-      })
+      (group) => {
+        const v = group.value;
+        return {
+          dayOfWeek: v.dayOfWeek,
+          startTime: this.normalizeTimeToHHMMSS(v.startTime),
+          endTime: this.normalizeTimeToHHMMSS(v.endTime),
+        };
+      }
     );
-    formData.append('availabilityList', JSON.stringify(availabilityFormatted));
+
+    const availabilityJson = JSON.stringify(availabilityFormatted);
+    console.log('availabilityJson ->', availabilityJson);
+    formData.append('availabilityList', availabilityJson);
 
     // Owner ID
     const ownerId = localStorage.getItem('idUser');

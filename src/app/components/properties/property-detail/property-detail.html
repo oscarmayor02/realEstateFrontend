@@ -199,8 +199,8 @@
               (click)="seleccionarDisponibilidad(dispo)"
               style="cursor: pointer"
             >
-              <strong>{{ dispo.dayOfWeek }}</strong>: {{ dispo.startTime }} - {{
-              dispo.endTime }}
+              <strong>{{ getDayName(dispo.dayOfWeek) }}</strong>: {{
+              dispo.startTime }} - {{ dispo.endTime }}
             </li>
           </ul>
         </div>
