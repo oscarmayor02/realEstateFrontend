@@ -11,7 +11,29 @@
     margin-left: 240px;
     padding-top: 0;
   }
+ .container-fluid {
+   margin-top: 6rem !important;
+  }
 }
+
+@media (max-width: 576px) {
+  .container-fluid {
+   margin-top: 6rem !important;
+  }
+}
+@media (max-width: 480px) {
+  .container-fluid {
+   margin-top: 6rem !important;
+  }
+}
+
+@media (max-width: 350px) {
+  .container-fluid {
+   margin-top: 6rem !important;
+  }
+  }
+
+
 
 /* Sidebar Desktop */
 .sidebar-desktop {
