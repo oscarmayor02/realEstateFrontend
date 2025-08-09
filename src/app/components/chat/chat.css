@@ -478,37 +478,43 @@
   }
  /* Mantén todo tu CSS actual, y agrega estas reglas al final o dentro del media query móvil */
 
-/* Para pantallas ultra pequeñas, menos de 350px */
+/* Ajustes para móviles ultra pequeños */
 @media (max-width: 350px) {
+  .chat-window {
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* ocupar todo el alto disponible */
+  }
+
+  .chat-messages {
+    flex: 1; /* que crezca y use todo el espacio restante */
+    min-height: 0; /* evitar que se expanda más de lo necesario */
+    overflow-y: auto;
+  }
+
   .chat-input {
+    flex-shrink: 0;
     display: flex;
     gap: 4px;
-    min-width: 0; /* importante para que pueda reducir su tamaño */
+    padding: 6px;
+    border-top: 1px solid #ddd;
+    background: #fff; /* asegurar fondo sólido */
   }
 
   .chat-input input {
-    flex-grow: 1;
-    min-width: 0; /* permite que se reduzca más */
-    padding: 8px 12px;
-    font-size: 0.95rem;
-    border-radius: 20px;
+    flex: 1;
+    min-width: 0;
+    padding: 8px;
+    font-size: 0.9rem;
+    border-radius: 18px;
   }
 
   .chat-input button {
-    flex-shrink: 0; /* no dejar que se reduzca */
-    min-width: 60px; /* ancho mínimo para el botón */
-    padding: 8px 14px;
-    font-size: 0.95rem;
-    border-radius: 20px;
-    background-color: #0a66c2;
-    color: white;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-
-  .chat-input button:hover {
-    background-color: #054a91;
+    flex-shrink: 0;
+    min-width: 55px;
+    padding: 8px;
+    font-size: 0.85rem;
+    border-radius: 18px;
   }
 }
 }
