@@ -1,177 +1,89 @@
 .property-card {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  background-color: #fff;
-  border-radius: 16px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.07);
-  padding: 16px 20px;
+  border-radius: 12px;
+  overflow: hidden;
   transition: box-shadow 0.3s ease, transform 0.2s ease;
-  height: 100%;
-  width: 593px;
-  gap: 20px;
-  flex-wrap: nowrap;
+  cursor: pointer;
 }
 
 .property-card:hover {
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
-  transform: translateY(-3px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px);
 }
 
 .property-img {
-  width: 130px;
-  height: 90px;
-  border-radius: 12px;
+  height: 200px;
   object-fit: cover;
-  flex-shrink: 0;
-  box-shadow: 0 3px 10px rgba(10, 102, 194, 0.12);
-  transition: box-shadow 0.3s ease;
+  transition: transform 0.3s ease;
+  width: 100%;
 }
 
 .property-card:hover .property-img {
-  box-shadow: 0 5px 18px rgba(10, 102, 194, 0.25);
+  transform: scale(1.05);
 }
 
-.property-info {
-  flex: 1 1 auto;
-  min-width: 180px;
-  padding: 0 1rem;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.property-info h5 {
-  margin: 0 0 0.25rem 0;
+.card-title {
   font-weight: 700;
-  font-size: 1.1rem;
-  color: #0a66c2;
+  font-size: 1.2rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.property-info p {
-  margin: 0;
+.card-text {
   font-size: 0.9rem;
-  color: #555;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .badge {
-  align-self: flex-start;
-  margin-top: 6px;
   font-weight: 600;
-  font-size: 0.8rem;
-  padding: 5px 14px;
-  border-radius: 18px;
-  background-color: #00aaff;
-  color: white;
-  text-transform: uppercase;
+  font-size: 0.85rem;
+  padding: 6px 16px;
+  border-radius: 20px;
   letter-spacing: 0.05em;
   box-shadow: 0 2px 7px rgba(0, 170, 255, 0.3);
-  transition: background-color 0.3s ease;
+}
+
+.badge.bg-success {
+  background-color: #28a745 !important;
 }
 
 .badge.bg-secondary {
-  background-color: #777;
-  box-shadow: 0 2px 7px rgba(119, 119, 119, 0.3);
+  background-color: #6c757d !important;
 }
 
-.property-actions {
-  flex-shrink: 0;
-  min-width: 150px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 10px;
-  max-width: 100%;
-}
-
-.property-actions h5.text-primary {
-  white-space: normal;
-  overflow-wrap: break-word;
-  max-width: 100%;
-  margin-bottom: 0.5rem;
-  font-size: 1.15rem;
-  color: #0077cc;
-  font-weight: 700;
-}
-
-.property-actions .btn-sm {
-  padding: 0.4rem 1rem;
-  font-size: 0.85rem;
-  border-radius: 8px;
-  transition: background-color 0.3s ease, color 0.3s ease;
+/* Botones en fila y mismos tamaños */
+.btn-outline-primary,
+.btn-outline-danger {
   font-weight: 600;
+  border-radius: 8px;
+  padding: 0.5rem 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.property-actions .btn-outline-primary:hover {
-  background-color: #0077cc;
+.btn-outline-primary:hover {
+  background-color: #007bff;
   color: white;
-  border-color: #0077cc;
+  border-color: #007bff;
 }
 
-.property-actions .btn-outline-danger:hover {
+.btn-outline-danger:hover {
   background-color: #dc3545;
   color: white;
   border-color: #dc3545;
 }
 
-/* Responsive para móviles */
-@media (max-width: 768px) {
-  .property-card {
-    flex-direction: column;
-    align-items: flex-start;
-    text-align: left;
-    gap: 12px;
-    flex-wrap: wrap;
-    padding: 12px;
-  }
+/* Responsive ajustes */
 
-  .container-fluid {
-    padding-top: 4rem !important;
-  }
-
+@media (max-width: 576px) {
   .property-img {
-    width: 100%;
-    height: auto;
-    border-radius: 12px;
+    height: 180px;
   }
 
-  .property-info {
-    padding: 0;
-    min-width: auto;
+  .card-title {
+    font-size: 1rem;
   }
 
-  /* Permitir múltiples líneas en móvil */
-  .property-info h5,
-  .property-info p {
-    white-space: normal;
-    overflow: visible;
-    text-overflow: clip;
-  }
-
-  .property-actions {
-    width: 100%;
-    flex-direction: row;
-    justify-content: flex-end;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
-
-  .property-actions h5.text-primary {
-    flex-basis: 100%;
-    text-align: right;
-  }
-
-  /* Botones más grandes y que ocupen espacio proporcional */
-  .property-actions .btn-sm {
-    flex: 1;
-    padding: 0.4rem 0;
-    font-size: 0.9rem;
+  .badge {
+    font-size: 0.75rem;
+    padding: 5px 12px;
   }
 }
