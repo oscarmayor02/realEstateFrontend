@@ -476,4 +476,22 @@
     text-overflow: ellipsis;
     flex-grow: 1;
   }
+  @media (max-width: 350px) {
+  .chat-input {
+    gap: 1px; /* o menos */
+  }
+
+  .chat-input input {
+    min-width: 0; /* para que pueda reducirse */
+    flex-grow: 1;
+  }
+
+  .chat-input button {
+    flex-shrink: 0; /* que no se reduzca */
+    min-width: 60px; /* ancho mínimo para que se vea bien */
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+}
+
 }
