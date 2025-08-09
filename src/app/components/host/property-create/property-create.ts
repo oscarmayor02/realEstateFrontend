@@ -241,8 +241,8 @@ export class PropertyCreate implements OnInit {
     if (this.propertyForm.invalid) return;
 
     const formData = new FormData();
-    const formValue = this.propertyForm.value;
 
+    // Añadir campos excepto availabilityList
     Object.keys(this.propertyForm.controls).forEach((key) => {
       const value = this.propertyForm.get(key)?.value;
       if (key !== 'availabilityList' && value !== null && value !== undefined) {
@@ -257,21 +257,17 @@ export class PropertyCreate implements OnInit {
       }
     });
 
-    if (this.availabilityList.length > 0) {
-      const availabilityFormatted = this.availabilityList.controls.map(
-        (group) => {
-          const value = group.value;
-          return {
-            dayOfWeek: value.dayOfWeek,
-            startTime: value.startTime,
-            endTime: value.endTime,
-          };
-        }
-      );
-      const availabilityJson = JSON.stringify(availabilityFormatted);
-      formData.append('availabilityList', availabilityJson);
-    }
+    // Enviar availabilityList como JSON.stringify siempre
+    const availabilityFormatted = this.availabilityList.controls.map(
+      (group) => ({
+        dayOfWeek: group.value.dayOfWeek,
+        startTime: group.value.startTime,
+        endTime: group.value.endTime,
+      })
+    );
+    formData.append('availabilityList', JSON.stringify(availabilityFormatted));
 
+    // Owner ID
     const ownerId = localStorage.getItem('idUser');
     if (!ownerId) {
       alert('No se encontró el ID del propietario. Por favor, inicia sesión.');
@@ -279,6 +275,7 @@ export class PropertyCreate implements OnInit {
     }
     formData.append('ownerId', ownerId);
 
+    // Archivos
     if (this.selectedFiles.length > 0) {
       this.selectedFiles.forEach((file) => formData.append('images', file));
     }
