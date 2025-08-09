@@ -80,17 +80,29 @@
   <div *ngIf="isMenuOpen" class="mobile-menu mt-3">
     <ul class="nav flex-column gap-2">
       <li class="nav-item">
-        <a [routerLink]="['properties']" class="nav-link text-white">
+        <a
+          [routerLink]="['properties']"
+          class="nav-link text-white"
+          (click)="toggleMenu()"
+        >
           <i class="bi bi-house-door-fill me-2"></i>Mis Propiedades
         </a>
       </li>
       <li class="nav-item">
-        <a [routerLink]="['mis-propiedades/nueva']" class="nav-link text-white">
+        <a
+          [routerLink]="['mis-propiedades/nueva']"
+          class="nav-link text-white"
+          (click)="toggleMenu()"
+        >
           <i class="bi bi-calendar-check-fill me-2"></i>Nueva Propiedad
         </a>
       </li>
       <li class="nav-item">
-        <a [routerLink]="['reservas']" class="nav-link text-white">
+        <a
+          [routerLink]="['reservas']"
+          class="nav-link text-white"
+          (click)="toggleMenu()"
+        >
           <i class="bi bi-heart-fill me-2"></i>Reservas Recibidas
         </a>
       </li>
@@ -98,6 +110,7 @@
         <a
           [routerLink]="['mensajes']"
           class="nav-link text-white d-flex justify-content-between align-items-center"
+          (click)="toggleMenu()"
         >
           <span><i class="bi bi-chat-dots-fill me-2"></i> Mensajes</span>
           <span
@@ -110,7 +123,11 @@
         </a>
       </li>
       <li class="nav-item">
-        <a [routerLink]="['configuracion']" class="nav-link text-white">
+        <a
+          [routerLink]="['configuracion']"
+          class="nav-link text-white"
+          (click)="toggleMenu()"
+        >
           <i class="bi bi-gear-fill me-2"></i> Configuración
         </a>
       </li>

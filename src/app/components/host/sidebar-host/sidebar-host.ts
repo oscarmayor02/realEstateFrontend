@@ -55,5 +55,6 @@ export class SidebarHost implements OnInit, OnDestroy {
 
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
+    console.log(`Menu is now ${this.isMenuOpen ? 'open' : 'closed'}`);
   }
 }

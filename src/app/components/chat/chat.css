@@ -17,6 +17,15 @@
   background: #f9fbff;
 }
 
+/* En móvil permitir overflow visible para que no corte el botón */
+@media (max-width: 768px) {
+  .chat-container {
+    flex-direction: column;
+    height: 100dvh;
+    overflow: visible !important;
+  }
+}
+
 /* Sidebar: lista de conversaciones */
 .sidebar {
   width: 320px;
@@ -170,12 +179,18 @@
 }
 
 .back-button {
-  font-size: 1.5rem;
-  background: none;
-  border: none;
-  color: #0a66c2;
+  position: relative;
+  z-index: 10;
+  margin-right: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   user-select: none;
+  font-size: 1.5rem;
+  background: transparent;
+  border: none;
+  color: #0a66c2;
   transition: color 0.3s ease;
 }
 
@@ -372,13 +387,11 @@
   }
 }
 @media (max-width: 420px) {
-  /* Ajusta el contenedor principal para ocupar toda la pantalla */
   .chat-container {
     flex-direction: column;
     height: 100dvh;
   }
 
-  /* Sidebar ocupa toda la anchura, altura limitada para no tapar todo */
   .sidebar {
     width: 100%;
     max-height: 30dvh;
@@ -386,10 +399,9 @@
     border-right: none;
     border-bottom: 1px solid #ddd;
     padding: 8px;
-    margin-top: 0;
+    margin-top: 24px;
   }
 
-  /* Área de chat con espacio para el input */
   .chat-window {
     flex: 1;
     height: auto;
@@ -399,7 +411,6 @@
     flex-direction: column;
   }
 
-  /* Ajusta la lista de mensajes para que no ocupe toda la pantalla */
   .chat-messages {
     max-height: 50dvh;
     overflow-y: auto;
@@ -407,7 +418,6 @@
     margin-bottom: 8px;
   }
 
-  /* Input para enviar mensajes: ocupa toda la anchura y botón junto */
   .chat-input {
     display: flex;
     gap: 6px;
@@ -439,7 +449,6 @@
     background-color: #054a91;
   }
 
-  /* Ajuste botón back más visible y accesible */
   .back-button {
     font-size: 1.5rem;
     padding: 4px 8px;
@@ -450,19 +459,16 @@
     cursor: pointer;
   }
 
-  /* Ajusta avatar para que no se vea gigante */
   .avatar {
     width: 36px;
     height: 36px;
     font-size: 16px;
   }
 
-  /* Reduce padding y espacio en las conversaciones */
   .conversation {
     padding: 8px 10px;
   }
 
-  /* Ajusta textos para que no se corten */
   .chat-header h3 {
     font-size: 1.1rem;
     white-space: nowrap;

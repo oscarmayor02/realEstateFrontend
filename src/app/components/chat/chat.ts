@@ -189,12 +189,12 @@ export class Chat implements OnInit, AfterViewChecked {
       .padStart(2, '0')}`;
   }
 
-  isWideScreen = window.innerWidth >= 768;
-
   @HostListener('window:resize', [])
   onResize() {
     this.isWideScreen = window.innerWidth >= 768;
   }
+
+  isWideScreen: boolean = window.innerWidth >= 768;
 
   // Devuelve un color para el avatar basado en la primera letra del nombre
   getAvatarColor(name: string): string {
