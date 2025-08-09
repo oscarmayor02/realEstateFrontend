@@ -5,6 +5,9 @@
     margin-top: 0;
 
   }
+   .container-fluid {
+   margin-top: 6rem !important;
+  }
 }
 
 /* Móvil: margen arriba para que el contenido no quede debajo del sidebar mobile */
@@ -14,4 +17,25 @@
     margin-left: 0;
     width: 347px;
   }
+    .container-fluid {
+   margin-top: 6rem !important;
+  }
 }
+
+
+@media (max-width: 576px) {
+  .container-fluid {
+   margin-top: 6rem !important;
+  }
+}
+@media (max-width: 480px) {
+  .container-fluid {
+   margin-top: 6rem !important;
+  }
+}
+
+@media (max-width: 350px) {
+  .container-fluid {
+   margin-top: 6rem !important;
+  }
+  }
