@@ -89,7 +89,10 @@ export class PropertyMap implements OnInit, OnChanges {
   async loadProperties() {
     try {
       const properties = await this.http
-        .get<any[]>('http://localhost:8080/api/properties/available')
+        // .get<any[]>('http://localhost:8080/api/properties/available')
+        .get<any[]>(
+          'https://realstatebackend-mxee.onrender.com/api/properties/available'
+        )
         .toPromise();
       console.log('Propiedades cargadas:', properties);
 
