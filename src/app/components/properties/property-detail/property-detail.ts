@@ -219,17 +219,17 @@ export class PropertyDetail implements OnInit, OnDestroy {
       },
     });
   }
-  dayNames: { [key: number]: string } = {
-    1: 'Lunes',
-    2: 'Martes',
-    3: 'Miércoles',
-    4: 'Jueves',
-    5: 'Viernes',
-    6: 'Sábado',
-    7: 'Domingo',
+  dayNames: { [key: string]: string } = {
+    MONDAY: 'Lunes',
+    TUESDAY: 'Martes',
+    WEDNESDAY: 'Miércoles',
+    THURSDAY: 'Jueves',
+    FRIDAY: 'Viernes',
+    SATURDAY: 'Sábado',
+    SUNDAY: 'Domingo',
   };
 
-  getDayName(dayNumber: number): string {
-    return this.dayNames[dayNumber] || String(dayNumber);
+  getDayName(dayKey: string): string {
+    return this.dayNames[dayKey] || dayKey; // Si no lo encuentra, devuelve el original
   }
 }
