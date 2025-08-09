@@ -399,7 +399,7 @@
     border-right: none;
     border-bottom: 1px solid #ddd;
     padding: 8px;
-    margin-top: 24px;
+    margin-top: 50px;
   }
 
   .chat-window {
@@ -517,4 +517,20 @@
     border-radius: 18px;
   }
 }
+}
+@supports (-webkit-touch-callout: none) {
+  /* Ajuste especial para Safari iOS */
+  .chat-input {
+    padding-right: 8px;
+    padding-left: 8px;
+    box-sizing: border-box;
+  }
+
+  .chat-input input {
+    min-width: 0; /* Evita que el input fuerce ancho extra */
+  }
+
+  .chat-container {
+    height: 100%; /* Evita problemas de vh en iOS */
+  }
 }
