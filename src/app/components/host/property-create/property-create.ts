@@ -261,13 +261,10 @@ export class PropertyCreate implements OnInit {
       const availabilityFormatted = this.availabilityList.controls.map(
         (group) => {
           const value = group.value;
-          const formatTime = (time: string) =>
-            time.length === 5 ? time + ':00' : time;
-
           return {
             dayOfWeek: value.dayOfWeek,
-            startTime: formatTime(value.startTime),
-            endTime: formatTime(value.endTime),
+            startTime: value.startTime?.toString().padStart(5, '0'),
+            endTime: value.endTime?.toString().padStart(5, '0'),
           };
         }
       );
